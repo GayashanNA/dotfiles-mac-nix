@@ -21,6 +21,17 @@
     casks = [
       "wezterm"
       "amethyst"
+      "claude"
+      "docker-desktop"
+      "firefox"
+      "google-chrome"
+      "google-drive"
+      "karabiner-elements"
+      "logi-options+"
+      "obsidian"
+      "visual-studio-code"
+      "vlc"
+      "windscribe"
     ];
   };
 
