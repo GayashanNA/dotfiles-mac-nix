@@ -1,27 +1,131 @@
-# Bootstrap
+# dotfiles-mac-nix
 
-Run `setup/mac.sh` on a fresh Mac **after** cloning this repo and **after** replacing the placeholder values in the Nix files.
+This repo is the public, reusable core of my Mac setup.
 
-Typical flow:
+It is built with [Nix](https://nixos.org/), [`nix-darwin`](https://github.com/nix-darwin/nix-darwin), [Home Manager](https://github.com/nix-community/home-manager), and declarative [Homebrew](https://brew.sh/). The goal is to give macOS developers a reproducible base they can fork and adapt without inheriting someone else's entire private dotfiles repo.
 
-1. Clone the repo
-2. Replace placeholder values such as:
-   - `yourname`
-   - `/Users/yourname`
-   - `Your Name`
-   - `you@example.com`
-3. Run:
+If you want the longer explanation, see the [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web).
+
+## What this repo does
+
+It gives you a structured starting point for managing a Mac setup in code:
+
+- bootstrap a fresh Mac with `setup/mac.sh`
+- configure macOS defaults with `nix-darwin`
+- manage user packages and shell behavior with Home Manager
+- install GUI apps and macOS-native tools declaratively with Homebrew
+- keep selected app config in the repo and link it into place
+
+I include [WezTerm](https://wezfurlong.org/wezterm/) as the one concrete app-config example because it is real enough to demonstrate the pattern without dragging in the more personal parts of my workflow.
+
+## What is intentionally not included
+
+This repo does **not** try to mirror my entire machine.
+
+I left out things that are too personal or too workflow-specific to make a good public starter repo, including:
+
+- editor config
+- custom shell systems
+- personal scripts
+- AI tooling
+- secrets and tokens
+- private automation
+
+The goal is to provide a reusable foundation that you can make your own.
+
+## Repo structure
+
+- `setup/mac.sh` — bootstrap a fresh Mac
+- `flake.nix` — top-level Nix wiring
+- `nix/host.nix` — machine-level macOS config (nix-darwin)
+- `nix/user.nix` — user environment: packages, shell, git, fonts, dotfiles (Home Manager)
+- `files/.config/wezterm/wezterm.lua` — example app config linked into place
+- `blog.md` — local copy of the [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web)
+
+## How to use it
+
+### 1. Clone the repo
+
+```bash
+git clone git@github.com:kunchenguid/dotfiles-mac-nix.git ~/github/dotfiles-mac-nix
+cd ~/github/dotfiles-mac-nix
+```
+
+### 2. Replace the placeholders
+
+Update values like:
+
+- `yourname`
+- `/Users/yourname`
+- `Your Name`
+- `you@example.com`
+
+If you are on an Intel Mac, change the system target in `flake.nix` from:
+
+```nix
+system = "aarch64-darwin";
+```
+
+to:
+
+```nix
+system = "x86_64-darwin";
+```
+
+### 3. Run the bootstrap script on a fresh Mac
+
+This repo is primarily set up for Apple Silicon Macs. If you are on Intel, make the architecture change above before you run the bootstrap script.
 
 ```bash
 bash setup/mac.sh
 ```
 
-What the script does:
+The script will:
 
-- checks that you replaced the placeholder values first
-- installs Determinate Nix Installer if needed
-- installs Homebrew if needed
-- applies the `nix-darwin` + Home Manager configuration
-- installs `nvm` and a default Node.js version if needed
+- install [Determinate Nix Installer](https://determinate.systems/nix-installer/) if needed
+- install [Homebrew](https://brew.sh/) if needed
+- apply the `nix-darwin` + Home Manager config
+- install [`nvm`](https://github.com/nvm-sh/nvm) and a default Node.js version if needed
 
-This script is meant for the **first bootstrap on a new Mac**. After that, most ongoing changes should happen by editing the Nix config and running `darwin-rebuild switch --flake ~/github/dotfiles-mac-nix#mac`.
+## How I manage changes later
+
+After the initial bootstrap, the usual workflow is:
+
+1. edit the Nix config
+2. run:
+
+```bash
+rebuild
+```
+
+This alias is included in the shell config and expands to the repo path used in this guide:
+
+```bash
+/run/current-system/sw/bin/darwin-rebuild switch --flake ~/github/dotfiles-mac-nix#mac
+```
+
+## Where to add new tools
+
+My rough rule of thumb:
+
+- use **Home Manager / Nix** for reproducible baseline CLI tools, fonts, shell utilities, and user environment packages
+- use **Homebrew** for GUI apps and macOS-native tools that fit naturally there
+- use **ecosystem-specific package managers** like `npm` when that is the right abstraction for the tool
+
+A good setup does not force every tool through one package manager. It just makes the ownership of each layer clear.
+
+## Why this setup looks like this
+
+I wanted a setup that was:
+
+- reproducible on a new Mac
+- structured enough to maintain
+- pragmatic about macOS
+- publishable without oversharing the rest of my workflow
+
+That is why this repo focuses on the reusable core.
+
+## Related
+
+- Long-form write-up: [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web)
+- GitHub repo: <https://github.com/kunchenguid/dotfiles-mac-nix>

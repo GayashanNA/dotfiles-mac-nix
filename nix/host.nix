@@ -23,15 +23,14 @@
     starship
   ];
 
-  system.primaryUser = "yourname";
-  users.users.yourname = {
-    home = "/Users/yourname";
+  system.primaryUser = "gayashan";
+  users.users.gayashan = {
+    home = "/Users/gayashan";
     shell = pkgs.zsh;
   };
 
   system.defaults = {
     NSGlobalDomain = {
-      AppleInterfaceStyle = "Dark";
       KeyRepeat = 2;
       InitialKeyRepeat = 15;
       "com.apple.swipescrolldirection" = false;
@@ -56,7 +55,7 @@
 
   environment.systemPath = [
     "/run/current-system/sw/bin"
-    "/etc/profiles/per-user/yourname/bin"
+    "/etc/profiles/per-user/gayashan/bin"
   ];
 
   system.stateVersion = 6;

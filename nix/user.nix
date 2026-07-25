@@ -4,8 +4,8 @@ let
   dotfilesDir = "${config.home.homeDirectory}/github/dotfiles-mac-nix";
 in
 {
-  home.username = "yourname";
-  home.homeDirectory = "/Users/yourname";
+  home.username = "gayashan";
+  home.homeDirectory = "/Users/gayashan";
   home.stateVersion = "23.11";
   home.language.base = "en_US.UTF-8";
 
@@ -24,6 +24,7 @@ in
     rustup
     zip
     unzip
+    jdk21
     nerd-fonts.hack
     roboto
     noto-fonts
@@ -36,7 +37,18 @@ in
 
   home.sessionVariables = {
     EDITOR = "vim";
+    JAVA_HOME = "${pkgs.jdk21.home}";
+    ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
   };
+
+  # Android SDK is installed imperatively via sdkmanager under ~/Library/Android/sdk;
+  # Flutter stays a manual install under ~/development/flutter (pinned to 3.44.x).
+  home.sessionPath = [
+    "${config.home.homeDirectory}/development/flutter/bin"
+    "${config.home.homeDirectory}/Library/Android/sdk/platform-tools"
+    "${config.home.homeDirectory}/Library/Android/sdk/cmdline-tools/latest/bin"
+    "${config.home.homeDirectory}/Library/Android/sdk/emulator"
+  ];
 
   programs.git = {
     enable = true;
@@ -44,8 +56,8 @@ in
     signing.format = null;
     settings = {
       user = {
-        name = "Your Name";
-        email = "you@example.com";
+        name = "Gayashan Amarasinghe";
+        email = "gayashan.amarasinghe@gmail.com";
       };
       core.editor = "vim";
       color.ui = true;
@@ -104,6 +116,7 @@ in
     syntaxHighlighting.enable = true;
     shellAliases = {
       ".." = "cd ..";
+      "..." = "cd ../../";
       m = "git switch main";
       mst = "git switch master";
       pull = "git pull";
@@ -115,6 +128,19 @@ in
       rebasem = "git rebase -i main";
       rebasemst = "git rebase -i master";
       rebuild = "/run/current-system/sw/bin/darwin-rebuild switch --flake ~/github/dotfiles-mac-nix#mac";
+      ll = "ls -alF";
+      la = "ls -A";
+      l = "ls -CF";
+      gcm = "git checkout master";
+      gits = "git status";
+      gitp = "git push -v";
+      glp = "git log --pretty=oneline";
+      tailf = "tail -n 100 -f";
+      fn = "find -name";
+      mv = "mv -v";
+      cp = "cp -v";
+      qq = "ranger .";
+      prj = "cd ~/Projects/";
     };
     initContent = ''
       bindkey '^f' autosuggest-accept
