@@ -44,6 +44,7 @@ in
   # Android SDK is installed imperatively via sdkmanager under ~/Library/Android/sdk;
   # Flutter stays a manual install under ~/development/flutter (pinned to 3.44.x).
   home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
     "${config.home.homeDirectory}/development/flutter/bin"
     "${config.home.homeDirectory}/Library/Android/sdk/platform-tools"
     "${config.home.homeDirectory}/Library/Android/sdk/cmdline-tools/latest/bin"
