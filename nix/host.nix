@@ -9,9 +9,14 @@
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
-    taps = [ ];
+    taps = [ "hashicorp/tap" ];
     brews = [
       "autoconf"
+      "flyctl"
+      "gh"
+      "hashicorp/tap/terraform"
+      "python@3.12"
+      "ranger"
     ];
     casks = [
       "wezterm"

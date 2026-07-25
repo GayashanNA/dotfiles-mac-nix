@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dotfilesDir = "${config.home.homeDirectory}/github/dotfiles-mac-nix";
+  dotfilesDir = "${config.home.homeDirectory}/Projects/dotfiles-mac-nix";
 in
 {
   home.username = "gayashan";
@@ -127,7 +127,7 @@ in
       reset = "git reset --soft HEAD^";
       rebasem = "git rebase -i main";
       rebasemst = "git rebase -i master";
-      rebuild = "/run/current-system/sw/bin/darwin-rebuild switch --flake ~/github/dotfiles-mac-nix#mac";
+      rebuild = "sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/Projects/dotfiles-mac-nix#mac";
       ll = "ls -alF";
       la = "ls -A";
       l = "ls -CF";
@@ -141,7 +141,12 @@ in
       cp = "cp -v";
       qq = "ranger .";
       prj = "cd ~/Projects/";
+      pip = "pip3";
+      python = "python3";
     };
+    profileExtra = ''
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
     initContent = ''
       bindkey '^f' autosuggest-accept
     '';
