@@ -62,7 +62,9 @@
     NSGlobalDomain = {
       KeyRepeat = 2;
       InitialKeyRepeat = 15;
-      "com.apple.swipescrolldirection" = false;
+      # Natural scrolling ON for the trackpad; the MX Vertical mouse is
+      # inverted back to classic wheel scrolling per-device in Logi Options+.
+      "com.apple.swipescrolldirection" = true;
       NSAutomaticCapitalizationEnabled = false;
       NSAutomaticPeriodSubstitutionEnabled = false;
       NSAutomaticSpellingCorrectionEnabled = false;
