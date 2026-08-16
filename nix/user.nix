@@ -156,5 +156,13 @@ in
   home.file = {
     ".config/wezterm".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/wezterm";
     ".config/aerospace".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/aerospace";
+
+    # Symlink the FILE, not the directory — Karabiner owns assets/ and
+    # automatic_backups/ inside ~/.config/karabiner and writes to them.
+    # If Karabiner's GUI rewrites this file, the next rebuild restores the
+    # symlink (backupFileExtension); clear any stale .backup first:
+    #   rm -f ~/.config/karabiner/karabiner.json.backup
+    ".config/karabiner/karabiner.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/karabiner/karabiner.json";
   };
 }
