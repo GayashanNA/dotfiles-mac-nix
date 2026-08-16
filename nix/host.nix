@@ -72,6 +72,13 @@
       AppleShowAllExtensions = true;
     };
 
+    dock = {
+      # Stop macOS reordering Spaces by recency — with AeroSpace, native
+      # Space switching must be deterministic (also applied imperatively
+      # 2026-08-16; declared here so it survives rebuilds).
+      mru-spaces = false;
+    };
+
     finder = {
       AppleShowAllExtensions = true;
       ShowPathbar = true;
