@@ -123,10 +123,6 @@ run = ['move-node-to-workspace 3']
 if.app-id = 'com.microsoft.VSCode'
 run = ['move-node-to-workspace 4']
 
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = ['move-node-to-workspace 5']
-
 # --- apps that should never tile ---
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
