@@ -9,6 +9,11 @@
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
+    # Don't auto-update taps during rebuild activation: Homebrew's tap-trust
+    # is per-revision, so a mid-bundle tap update invalidates the trust for
+    # nikitabobko/tap and aborts activation at the cleanup step. After any
+    # deliberate `brew update`, re-run: brew trust nikitabobko/tap
+    global.autoUpdate = false;
     taps = [
       "hashicorp/tap"
       "nikitabobko/tap" # AeroSpace
