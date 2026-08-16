@@ -16,39 +16,46 @@ It gives you a structured starting point for managing a Mac setup in code:
 - install GUI apps and macOS-native tools declaratively with Homebrew
 - keep selected app config in the repo and link it into place
 
-I include [WezTerm](https://wezfurlong.org/wezterm/) as the one concrete app-config example because it is real enough to demonstrate the pattern without dragging in the more personal parts of my workflow.
+App configs under `files/.config/` are linked into place with out-of-store symlinks, so editing them takes effect without a rebuild.
 
-## What is intentionally not included
+## Keyboard-driven setup
 
-This repo does **not** try to mirror my entire machine.
+This machine runs an i3/Terminator-style keyboard workflow:
 
-I left out things that are too personal or too workflow-specific to make a good public starter repo, including:
+- **[AeroSpace](https://nikitabobko.github.io/AeroSpace/guide)** — i3-style tiling WM. ⌥⏎ focuses WezTerm; ⌥⇧⏎ opens a new terminal window tiled *beside* the current app; ⌥1–9 are workspaces; ⌥HJKL moves focus. Config: `files/.config/aerospace/aerospace.toml`.
+- **[WezTerm](https://wezfurlong.org/wezterm/)** — Terminator-style panes: ⌃⇧E splits side-by-side, ⌃⇧O splits stacked, ⌥+arrows navigate panes, ⌘A is the leader. Config: `files/.config/wezterm/wezterm.lua`.
+- **Karabiner-Elements** — ⇪ Caps Lock is Hyper (⌃⌥⌘⇧) when held, ⎋ Escape when tapped. Config: `files/.config/karabiner/karabiner.json`.
+- **CLI toolkit** — neovim (EDITOR), tmux (prefix ⌃A), fzf, zoxide, eza, bat, atuin (⌃R history), delta — all via Home Manager modules in `nix/user.nix`.
 
-- editor config
-- custom shell systems
-- personal scripts
-- AI tooling
-- secrets and tokens
-- private automation
+Terminology note: Terminator's "split vertically" (side-by-side panes) is WezTerm's `SplitHorizontal` and AeroSpace's `horizontal` orientation — the tools name the axis, Terminator names the divider.
 
-The goal is to provide a reusable foundation that you can make your own.
+### Escape hatches
+
+- Quit AeroSpace from the menu bar → windows float normally again, instantly.
+- Quit Karabiner-Elements → ⇪ is plain Caps Lock again.
+- `aerospace enable off` → disable tiling but keep the process alive.
+- Any phase is one commit: `git revert <commit>` then `rebuild`.
+- If a rebuild complains about `karabiner.json.backup`: `rm -f ~/.config/karabiner/karabiner.json.backup` (Karabiner's GUI occasionally replaces the managed symlink; the rebuild self-heals it).
+- Never use macOS native fullscreen (green button / ⌃⌘F) — it creates a separate Space that AeroSpace cannot see. Use ⌥F instead.
 
 ## Repo structure
 
 - `setup/mac.sh` — bootstrap a fresh Mac
 - `flake.nix` — top-level Nix wiring
-- `nix/host.nix` — machine-level macOS config (nix-darwin)
-- `nix/user.nix` — user environment: packages, shell, git, fonts, dotfiles (Home Manager)
-- `files/.config/wezterm/wezterm.lua` — example app config linked into place
-- `blog.md` — local copy of the [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web)
+- `nix/host.nix` — machine-level macOS config (nix-darwin), Homebrew casks
+- `nix/user.nix` — user environment: packages, shell, git, editor, CLI tools (Home Manager)
+- `files/.config/aerospace/` — AeroSpace tiling WM config
+- `files/.config/wezterm/` — WezTerm terminal config
+- `files/.config/karabiner/` — Karabiner Hyper-key config
+- `blog.md` — local copy of the upstream [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web)
 
 ## How to use it
 
 ### 1. Clone the repo
 
 ```bash
-git clone git@github.com:kunchenguid/dotfiles-mac-nix.git ~/github/dotfiles-mac-nix
-cd ~/github/dotfiles-mac-nix
+git clone git@github.com:kunchenguid/dotfiles-mac-nix.git ~/Projects/dotfiles-mac-nix
+cd ~/Projects/dotfiles-mac-nix
 ```
 
 ### 2. Replace the placeholders
@@ -101,7 +108,7 @@ rebuild
 This alias is included in the shell config and expands to the repo path used in this guide:
 
 ```bash
-/run/current-system/sw/bin/darwin-rebuild switch --flake ~/github/dotfiles-mac-nix#mac
+/run/current-system/sw/bin/darwin-rebuild switch --flake ~/Projects/dotfiles-mac-nix#mac
 ```
 
 ## Where to add new tools
