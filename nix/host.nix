@@ -9,7 +9,10 @@
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
-    taps = [ "hashicorp/tap" ];
+    taps = [
+      "hashicorp/tap"
+      "nikitabobko/tap" # AeroSpace
+    ];
     brews = [
       "autoconf"
       "flyctl"
@@ -19,8 +22,9 @@
       "ranger"
     ];
     casks = [
+      "aerospace" # i3-style tiling WM (nikitabobko/tap)
       "wezterm"
-      "amethyst"
+      "amethyst" # keep during AeroSpace trial: removal would zap its prefs
       "claude"
       "docker-desktop"
       "firefox"
