@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   dotfilesDir = "${config.home.homeDirectory}/Projects/dotfiles-mac-nix";
@@ -256,14 +256,22 @@ in
 
   home.file = {
     ".config/wezterm".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/wezterm";
-    ".config/aerospace".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/aerospace";
-
-    # Symlink the FILE, not the directory — Karabiner owns assets/ and
-    # automatic_backups/ inside ~/.config/karabiner and writes to them.
-    # If Karabiner's GUI rewrites this file, the next rebuild restores the
-    # symlink (backupFileExtension); clear any stale .backup first:
-    #   rm -f ~/.config/karabiner/karabiner.json.backup
-    ".config/karabiner/karabiner.json".source =
-      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/karabiner/karabiner.json";
   };
+
+  # AeroSpace and Karabiner read their configs at LOGIN, before the /nix
+  # volume may be mounted. home.file symlinks route through /nix/store
+  # (~/.config/x -> /nix/store/...-home-manager-files/... -> repo), which
+  # dangles at that moment — both apps then silently fall back to default
+  # configs (no shortcuts, no Hyper key) until manually reloaded. So these
+  # two are linked DIRECTLY to the repo, no store hop.
+  #
+  # karabiner: link the FILE, not the directory — Karabiner owns assets/
+  # and automatic_backups/ in ~/.config/karabiner and writes to them. If
+  # Karabiner's GUI ever replaces the symlink with a real file, rerun
+  # `rebuild` to restore it.
+  home.activation.loginCriticalConfigLinks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ln -sfn "${dotfilesDir}/files/.config/aerospace" "$HOME/.config/aerospace"
+    mkdir -p "$HOME/.config/karabiner"
+    ln -sfn "${dotfilesDir}/files/.config/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
+  '';
 }
