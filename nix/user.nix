@@ -66,13 +66,15 @@ in
       pull.rebase = true;
       rebase.updateRefs = true;
     };
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        line-numbers = true;
-        side-by-side = true;
-      };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      line-numbers = true;
+      side-by-side = true;
     };
   };
 
@@ -81,7 +83,9 @@ in
     defaultEditor = true; # sets EDITOR=nvim
     viAlias = true;
     vimAlias = true; # `vim` launches nvim; the old ~/.vimrc stops applying
-    extraLuaConfig = ''
+    withRuby = false; # adopt the new 26.05 defaults: no ruby/python providers
+    withPython3 = false;
+    initLua = ''
       -- ported from the old ~/.vimrc (snapshot: ~/keyboard-driven-rollback/.vimrc)
       vim.opt.number = true
       vim.opt.backup = false
@@ -127,13 +131,12 @@ in
     '';
   };
 
-  # Ctrl+R note: fzf's and atuin's zsh integrations both bind it; atuin should
-  # own history search while fzf keeps Ctrl+T (files) and Alt+C (cd). If a
-  # rebuild ever leaves Ctrl+R on fzf, re-init atuin last via a mkOrder'd
-  # programs.zsh.initContent block.
+  # atuin owns Ctrl+R (its integration is sourced after fzf's); fzf keeps
+  # Ctrl+T (files) and Alt+C (cd). historyWidget disabled to make that explicit.
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    historyWidget.command = "";
     defaultCommand = "fd --type f --hidden --follow --exclude .git";
     defaultOptions = [ "--height=40%" "--layout=reverse" "--border" ];
   };
