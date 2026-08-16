@@ -155,5 +155,6 @@ in
 
   home.file = {
     ".config/wezterm".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/wezterm";
+    ".config/aerospace".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/aerospace";
   };
 }

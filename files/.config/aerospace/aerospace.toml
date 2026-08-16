@@ -1,0 +1,120 @@
+# AeroSpace config — i3-style tiling for macOS
+# Docs: https://nikitabobko.github.io/AeroSpace/guide
+#
+# KEY NAMES: 'alt-' is the Mac OPTION key (⌥); 'enter' is RETURN (⏎).
+# AeroSpace uses Linux-style modifier names; the physical keys are Mac keys.
+#
+# ORIENTATION: 'horizontal' == children laid LEFT-TO-RIGHT == side by side.
+# That is what Terminator calls a "vertical split". This is the whole point:
+# a new terminal window lands BESIDE the app you're in, not on top of it.
+
+start-at-login = true
+after-login-command = []
+after-startup-command = []
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+
+# Keep the tree flat and predictable, like i3 without manual containers.
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+
+# Drag the pointer along so menus / hover targets follow the focused monitor.
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+key-mapping.preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.right = 8
+outer.top = 8
+outer.bottom = 8
+
+[mode.main.binding]
+# --- terminal ---
+# ⌥⏎  Focus WezTerm if running, launch if not.
+alt-enter = 'exec-and-forget open -a WezTerm'
+# ⌥⇧⏎ NEW WezTerm window -> AeroSpace tiles it BESIDE the focused window.
+# pgrep guard: `wezterm cli` with no GUI running spawns a headless mux-server
+# and creates an invisible window. Absolute path: exec-and-forget has no PATH.
+alt-shift-enter = 'exec-and-forget if pgrep -xq wezterm-gui; then /Applications/WezTerm.app/Contents/MacOS/wezterm cli spawn --new-window; else open -a WezTerm; fi'
+
+# --- focus / move (⌥ + hjkl, ⌥⇧ + hjkl) ---
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+alt-tab = 'workspace-back-and-forth'
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# --- resize / layout (⌥- ⌥= ⌥⇧= ⌥/ ⌥, ⌥F ⌥⇧Space) ---
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
+alt-shift-equal = 'balance-sizes'
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+alt-f = 'fullscreen'
+alt-shift-space = 'layout floating tiling'
+
+# --- window lifecycle (⌥Q closes the WINDOW, not the app — ⌘Q still quits) ---
+alt-q = 'close'
+alt-shift-q = 'close-all-windows-but-current'
+
+# --- workspaces (⌥1..⌥9 switch, ⌥⇧1..⌥⇧9 move window there) ---
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+# --- monitors (⌥⌃ + h/l, ⌥⌃⇧ + h/l) ---
+alt-ctrl-h = 'focus-monitor left'
+alt-ctrl-l = 'focus-monitor right'
+alt-ctrl-shift-h = 'move-node-to-monitor --wrap-around prev'
+alt-ctrl-shift-l = 'move-node-to-monitor --wrap-around next'
+
+alt-shift-semicolon = 'mode service' # ⌥⇧;  enter service mode
+
+[mode.service.binding]
+# In service mode, press these ALONE (no ⌥). ⎋ reloads config and exits.
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+# i3-style manual container joining
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# --- apps that should never tile ---
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = ['layout floating']
