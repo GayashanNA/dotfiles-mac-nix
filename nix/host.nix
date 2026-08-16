@@ -27,7 +27,11 @@
       "ranger"
     ];
     casks = [
-      "aerospace" # i3-style tiling WM (nikitabobko/tap)
+      # Fully-qualified on purpose: brew bundle rewrites ~/.homebrew/trust.json
+      # on every run, keeping only entries it can attribute to a tap via the
+      # Brewfile. A bare "aerospace" loses its trust entry each rebuild and
+      # fails activation at cleanup; the qualified name self-maintains trust.
+      "nikitabobko/tap/aerospace" # i3-style tiling WM
       "wezterm"
       "amethyst" # keep during AeroSpace trial: removal would zap its prefs
       "claude"
