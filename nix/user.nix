@@ -241,6 +241,7 @@ in
       fn = "find -name";
       mv = "mv -v";
       cp = "cp -v";
+      nv = "nvim";
       qq = "ranger .";
       prj = "cd ~/Projects/";
       pip = "pip3";
