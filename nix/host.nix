@@ -33,7 +33,6 @@
       # fails activation at cleanup; the qualified name self-maintains trust.
       "nikitabobko/tap/aerospace" # i3-style tiling WM
       "wezterm"
-      "amethyst" # keep during AeroSpace trial: removal would zap its prefs
       "claude"
       "docker-desktop"
       "firefox"
