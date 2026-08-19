@@ -79,6 +79,10 @@
       # Space switching must be deterministic (also applied imperatively
       # 2026-08-16; declared here so it survives rebuilds).
       mru-spaces = false;
+      # Group Mission Control thumbnails by app: AeroSpace parks hidden
+      # windows shrunk in a corner, which otherwise renders in Mission
+      # Control as unusable confetti (AeroSpace-documented workaround).
+      expose-group-apps = true;
     };
 
     finder = {
