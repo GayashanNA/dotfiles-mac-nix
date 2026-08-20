@@ -17,7 +17,8 @@ in
     fd
     fastfetch
     neovim
-    gnumake # kickstart.nvim: treesitter/mason build dep
+    gnumake # kickstart.nvim: build dep
+    tree-sitter # kickstart.nvim: nvim-treesitter main branch requires the CLI to install parsers
     ripgrep
     killall
     lazygit
