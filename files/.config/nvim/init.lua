@@ -770,6 +770,7 @@ do
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
+    'ruff', -- python formatter/linter (used by conform as ruff_format)
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -806,6 +807,7 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
+      python = { 'ruff_format' },
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
