@@ -85,27 +85,10 @@ in
     vimAlias = true; # `vim` launches nvim; the old ~/.vimrc stops applying
     withRuby = false; # adopt the new 26.05 defaults: no ruby/python providers
     withPython3 = false;
-    initLua = ''
-      -- ported from the old ~/.vimrc (snapshot: ~/keyboard-driven-rollback/.vimrc)
-      vim.opt.number = true
-      vim.opt.backup = false
-      vim.opt.swapfile = false
-      vim.opt.wrap = false
-      vim.opt.mouse = "a"
-      vim.opt.incsearch = true
-      vim.opt.hlsearch = true
-      vim.opt.ignorecase = true
-      vim.opt.smartcase = true
-      vim.opt.scrolloff = 3
-      vim.opt.shiftwidth = 4
-      vim.opt.softtabstop = 4
-      vim.opt.tabstop = 4
-      vim.opt.expandtab = true
-      vim.opt.termguicolors = true
-      vim.opt.clipboard = "unnamedplus"
-      vim.g.mapleader = " "
-      vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { silent = true })
-    '';
+    # Config is kickstart.nvim, tracked in files/.config/nvim/ and linked as
+    # a writable out-of-store symlink below (lazy.nvim writes lazy-lock.json
+    # next to init.lua, so the directory must not be read-only in the store).
+    extraPackages = with pkgs; [ gnumake ]; # treesitter/mason build deps
   };
 
   # tmux prefix "C-a" is Ctrl+A (tmux runs in the shell and never sees Cmd).
@@ -257,6 +240,9 @@ in
 
   home.file = {
     ".config/wezterm".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/wezterm";
+    # Writable target on purpose: lazy.nvim maintains lazy-lock.json inside
+    # the repo, so plugin versions are tracked in git alongside init.lua.
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/nvim";
   };
 
   # AeroSpace and Karabiner read their configs at LOGIN, before the /nix
