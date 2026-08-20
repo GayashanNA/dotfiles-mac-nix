@@ -17,6 +17,7 @@ in
     fd
     fastfetch
     neovim
+    poppler-utils # pdftotext & friends (was lost when brew zapped herdr's deps)
     gnumake # kickstart.nvim: build dep
     tree-sitter # kickstart.nvim: nvim-treesitter main branch requires the CLI to install parsers
     ripgrep
