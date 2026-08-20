@@ -16,6 +16,8 @@ in
     jq
     fd
     fastfetch
+    neovim
+    gnumake # kickstart.nvim: treesitter/mason build dep
     ripgrep
     killall
     lazygit
@@ -36,7 +38,7 @@ in
   fonts.fontconfig.enable = true;
 
   home.sessionVariables = {
-    # EDITOR is set to nvim by programs.neovim.defaultEditor
+    EDITOR = "nvim";
     JAVA_HOME = "${pkgs.jdk21.home}";
     ANDROID_HOME = "${config.home.homeDirectory}/Library/Android/sdk";
   };
@@ -78,18 +80,11 @@ in
     };
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true; # sets EDITOR=nvim
-    viAlias = true;
-    vimAlias = true; # `vim` launches nvim; the old ~/.vimrc stops applying
-    withRuby = false; # adopt the new 26.05 defaults: no ruby/python providers
-    withPython3 = false;
-    # Config is kickstart.nvim, tracked in files/.config/nvim/ and linked as
-    # a writable out-of-store symlink below (lazy.nvim writes lazy-lock.json
-    # next to init.lua, so the directory must not be read-only in the store).
-    extraPackages = with pkgs; [ gnumake ]; # treesitter/mason build deps
-  };
+  # Neovim is a plain package, NOT programs.neovim: the module generates its
+  # own ~/.config/nvim/init.lua, which collides with the kickstart.nvim config
+  # tracked in files/.config/nvim/ (linked writable below so lazy.nvim can
+  # keep lazy-lock.json version-controlled in the repo). EDITOR and vim/vi
+  # aliases are set manually instead of via the module.
 
   # tmux prefix "C-a" is Ctrl+A (tmux runs in the shell and never sees Cmd).
   # Deliberately distinct from WezTerm's Cmd+A leader.
@@ -225,6 +220,8 @@ in
       mv = "mv -v";
       cp = "cp -v";
       nv = "nvim";
+      vim = "nvim";
+      vi = "nvim";
       qq = "ranger .";
       prj = "cd ~/Projects/";
       pip = "pip3";
