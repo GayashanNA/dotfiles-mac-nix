@@ -1,0 +1,351 @@
+<title>Keymap Atlas</title>
+<style>
+  /* Rose Pine Dawn (print/light) / Rose Pine Moon (dark screen) */
+  :root {
+    --paper: #faf6f0;
+    --sheet: #fffdf9;
+    --ink: #433d5c;
+    --muted: #7a7591;
+    --pine: #286983;
+    --rose: #b4637a;
+    --chip-bg: #f3eee7;
+    --chip-edge: #cec9d9;
+    --rule: #e4ddd3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1f1d2e;
+      --sheet: #232136;
+      --ink: #e0def4;
+      --muted: #908caa;
+      --pine: #9ccfd8;
+      --rose: #ea9a97;
+      --chip-bg: #2a273f;
+      --chip-edge: #44415a;
+      --rule: #393552;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1f1d2e;
+    --sheet: #232136;
+    --ink: #e0def4;
+    --muted: #908caa;
+    --pine: #9ccfd8;
+    --rose: #ea9a97;
+    --chip-bg: #2a273f;
+    --chip-edge: #44415a;
+    --rule: #393552;
+  }
+
+  * { box-sizing: border-box; }
+  html { font-size: 13px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Avenir Next", "Helvetica Neue", system-ui, sans-serif;
+    line-height: 1.35;
+  }
+  .sheet {
+    max-width: 1140px;
+    margin: 1.5rem auto;
+    padding: 1.6rem 1.8rem;
+    background: var(--sheet);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--pine);
+    padding-bottom: .55rem;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    margin: 0;
+  }
+  h1 small { color: var(--muted); font-weight: 500; font-size: .72em; margin-left: .5em; }
+  .legend {
+    font-size: .78rem;
+    color: var(--muted);
+    display: flex;
+    gap: .8em;
+    flex-wrap: wrap;
+  }
+  .legend b { color: var(--ink); font-weight: 600; }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1.6rem;
+  }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+
+  section { break-inside: avoid; margin-bottom: 1rem; }
+  h2 {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--pine);
+    margin: 0 0 .3rem;
+    padding-bottom: .18rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  h2 .tag { float: right; color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 500; }
+  h3 {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin: .5rem 0 .15rem;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: .12rem 0; vertical-align: baseline; font-size: .84rem; }
+  td.k { width: 46%; white-space: nowrap; padding-right: .6rem; }
+
+  kbd {
+    display: inline-block;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: .78rem;
+    background: var(--chip-bg);
+    border: 1px solid var(--chip-edge);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 0 .32em;
+    margin-right: .12em;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  .then { color: var(--muted); font-size: .72rem; margin: 0 .25em; font-style: italic; }
+
+  .warn h2 { color: var(--rose); }
+  .warn td { color: var(--ink); }
+  .warn td.k { color: var(--rose); }
+
+  .note { font-size: .76rem; color: var(--muted); margin: .25rem 0 0; }
+  .pin { font-size: .8rem; margin-top: .3rem; }
+  .pin b { color: var(--pine); font-weight: 600; }
+
+  footer {
+    margin-top: .4rem;
+    padding-top: .5rem;
+    border-top: 1px solid var(--rule);
+    font-size: .74rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @page { size: A4 portrait; margin: 9mm; }
+  @media print {
+    :root, :root[data-theme="dark"] {
+      --paper: #fff; --sheet: #fff; --ink: #35304a; --muted: #6f6a85;
+      --pine: #286983; --rose: #b4637a;
+      --chip-bg: #f4f1ea00; --chip-edge: #b9b3c6; --rule: #d9d3c8;
+    }
+    html { font-size: 10.2px; }
+    body { background: #fff; }
+    .sheet { max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; }
+    section { margin-bottom: .7rem; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+
+<div class="sheet">
+  <header>
+    <h1>Keymap Atlas <small>AeroSpace · WezTerm · Neovim</small></h1>
+    <div class="legend">
+      <span><b>⌥</b> option/alt</span><span><b>⌃</b> control</span><span><b>⇧</b> shift</span>
+      <span><b>⌘</b> command</span><span><b>⇪</b> caps lock</span><span><b>⏎</b> return</span>
+      <span><b>⎋</b> escape</span><span><b>N</b> = workspace 1–9</span>
+    </div>
+  </header>
+
+  <div class="cols">
+
+    <!-- ============ COLUMN 1: DESKTOP ============ -->
+    <div>
+      <section>
+        <h2>Workspaces <span class="tag">AeroSpace</span></h2>
+        <table>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⏎</kbd></td><td>Summon terminal (focus or launch)</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⇧</kbd><kbd>⏎</kbd></td><td>New terminal <em>beside</em> current app</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>1</kbd>…<kbd>9</kbd></td><td>Go to workspace N</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⇧</kbd><kbd>1</kbd>…<kbd>9</kbd></td><td>Send window to workspace N</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>Tab</kbd></td><td>Bounce between last two workspaces</td></tr>
+        </table>
+        <p class="pin">Pinned: Firefox → <b>1</b> · VS Code → <b>3</b> · everything else opens where you are</p>
+      </section>
+
+      <section>
+        <h2>Windows</h2>
+        <table>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></td><td>Focus left / down / up / right</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⇧</kbd><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></td><td>Move the window itself</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>F</kbd></td><td>Fill screen (toggle) — the “maximize”</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>-</kbd> / <kbd>⌥</kbd><kbd>=</kbd></td><td>Shrink / grow</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⇧</kbd><kbd>=</kbd></td><td>Equalize sizes</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>/</kbd></td><td>Toggle tile orientation (side-by-side ⇄ stacked)</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>,</kbd></td><td>Accordion — every window near-full, cycle <kbd>⌥</kbd><kbd>H</kbd>/<kbd>L</kbd></td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⇧</kbd><kbd>Space</kbd></td><td>Float / re-tile this window</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>Q</kbd></td><td>Close window (app keeps running)</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Monitors &amp; config</h2>
+        <table>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⌃</kbd><kbd>H</kbd> / <kbd>L</kbd></td><td>Focus other monitor</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⌃</kbd><kbd>⇧</kbd><kbd>H</kbd> / <kbd>L</kbd></td><td>Throw window to other monitor</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>⇧</kbd><kbd>;</kbd><span class="then">then</span><kbd>⎋</kbd></td><td>Reload AeroSpace config</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Caps Lock</h2>
+        <table>
+          <tr><td class="k"><kbd>⇪</kbd> tap</td><td>Escape</td></tr>
+          <tr><td class="k"><kbd>⇪</kbd> hold + key</td><td>Hyper (⌃⌥⌘⇧) — reserved, conflict-free</td></tr>
+        </table>
+      </section>
+
+      <section class="warn">
+        <h2>Unlearn these</h2>
+        <table>
+          <tr><td class="k">green ● / ⌃⌘F</td><td>→ <kbd>⌥</kbd><kbd>F</kbd> (native fullscreen hides the window!)</td></tr>
+          <tr><td class="k">⌘M minimize</td><td>→ <kbd>⌥</kbd><kbd>⇧</kbd><kbd>9</kbd> park it on a workspace</td></tr>
+          <tr><td class="k">Space swipes / ⌃←→</td><td>→ <kbd>⌥</kbd><kbd>N</kbd> / <kbd>⌥</kbd><kbd>Tab</kbd></td></tr>
+          <tr><td class="k">Firefox: ⌥Q then quit</td><td>→ quit with <kbd>⌘</kbd><kbd>Q</kbd> or session is lost</td></tr>
+        </table>
+      </section>
+    </div>
+
+    <!-- ============ COLUMN 2: TERMINAL ============ -->
+    <div>
+      <section>
+        <h2>Splits <span class="tag">WezTerm · Terminator keys</span></h2>
+        <table>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>E</kbd></td><td>New pane to the <em>right</em></td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>O</kbd></td><td>New pane <em>below</em></td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Panes</h2>
+        <table>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>↑</kbd><kbd>→</kbd></td><td>Focus pane (arrows = panes, letters = windows)</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>↑</kbd><kbd>→</kbd></td><td>Resize pane</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>X</kbd></td><td>Zoom / unzoom pane</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>W</kbd></td><td>Close pane (confirms if busy)</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Tabs &amp; clipboard</h2>
+        <table>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>T</kbd></td><td>New tab</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>PgUp</kbd> / <kbd>PgDn</kbd></td><td>Previous / next tab</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>C</kbd> / <kbd>V</kbd></td><td>Copy / paste</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Leader <span class="tag">⌘A, release, then…</span></h2>
+        <table>
+          <tr><td class="k"><kbd>\</kbd> / <kbd>-</kbd></td><td>Split right / split below</td></tr>
+          <tr><td class="k"><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></td><td>Focus pane (vim style)</td></tr>
+          <tr><td class="k"><kbd>P</kbd></td><td>Pane picker (overlay letters)</td></tr>
+          <tr><td class="k"><kbd>Z</kbd> / <kbd>R</kbd></td><td>Zoom pane / rotate panes</td></tr>
+          <tr><td class="k"><kbd>N</kbd></td><td>New OS window (tiles beside)</td></tr>
+          <tr><td class="k"><kbd>1</kbd>…<kbd>9</kbd></td><td>Jump to tab N</td></tr>
+          <tr><td class="k"><kbd>[</kbd></td><td>Copy mode (vim keys)</td></tr>
+          <tr><td class="k"><kbd>F</kbd></td><td>Search scrollback</td></tr>
+          <tr><td class="k"><kbd>E</kbd></td><td><b>Scrollback → nvim</b> (full vim over history)</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Shell</h2>
+        <table>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>R</kbd></td><td>History search (atuin)</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>T</kbd></td><td>Fuzzy file picker (fzf)</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>C</kbd></td><td>Fuzzy cd (fzf)</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>F</kbd></td><td>Accept autosuggestion</td></tr>
+          <tr><td class="k"><kbd>z</kbd> <i>dir</i></td><td>Jump to frecent directory (zoxide)</td></tr>
+          <tr><td class="k"><kbd>nv</kbd> · <kbd>ll</kbd> · <kbd>rebuild</kbd></td><td>nvim · eza listing · apply nix config</td></tr>
+        </table>
+      </section>
+    </div>
+
+    <!-- ============ COLUMN 3: EDITOR ============ -->
+    <div>
+      <section>
+        <h2>Motion <span class="tag">Neovim · relative numbers</span></h2>
+        <table>
+          <tr><td class="k"><kbd>7</kbd><kbd>j</kbd> / <kbd>7</kbd><kbd>k</kbd></td><td>Jump to the line marked 7 in the gutter</td></tr>
+          <tr><td class="k"><kbd>d</kbd><kbd>3</kbd><kbd>j</kbd> · <kbd>y</kbd><kbd>5</kbd><kbd>k</kbd></td><td>Any operator takes the same count</td></tr>
+          <tr><td class="k"><kbd>:127</kbd> / <kbd>127</kbd><kbd>G</kbd></td><td>Absolute jump (cursor line shows true №)</td></tr>
+          <tr><td class="k"><kbd>gg</kbd> / <kbd>G</kbd></td><td>Top / bottom</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Find <span class="tag">leader = Space</span></h2>
+        <table>
+          <tr><td class="k"><kbd>␣</kbd><kbd>s</kbd><kbd>f</kbd></td><td>Find file by name</td></tr>
+          <tr><td class="k"><kbd>␣</kbd><kbd>s</kbd><kbd>g</kbd></td><td>Grep the whole project</td></tr>
+          <tr><td class="k"><kbd>␣</kbd><kbd>␣</kbd></td><td>Open buffers</td></tr>
+          <tr><td class="k"><kbd>␣</kbd><kbd>s</kbd><kbd>.</kbd></td><td>Recent files</td></tr>
+          <tr><td class="k"><kbd>␣</kbd><kbd>e</kbd></td><td>File explorer — edit it like text, <kbd>:w</kbd> applies</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Code · LSP</h2>
+        <table>
+          <tr><td class="k"><kbd>g</kbd><kbd>r</kbd><kbd>d</kbd> / <kbd>g</kbd><kbd>r</kbd><kbd>r</kbd></td><td>Definition / references</td></tr>
+          <tr><td class="k"><kbd>g</kbd><kbd>r</kbd><kbd>n</kbd> / <kbd>g</kbd><kbd>r</kbd><kbd>a</kbd></td><td>Rename / code action</td></tr>
+          <tr><td class="k"><kbd>K</kbd></td><td>Docs for symbol under cursor</td></tr>
+          <tr><td class="k"><kbd>␣</kbd><kbd>f</kbd></td><td>Format (auto on save too)</td></tr>
+          <tr><td class="k"><kbd>]</kbd><kbd>d</kbd> / <kbd>[</kbd><kbd>d</kbd></td><td>Next / previous diagnostic</td></tr>
+          <tr><td class="k"><kbd>␣</kbd><kbd>q</kbd></td><td>All diagnostics as a list</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Debug <span class="tag">Python via debugpy</span></h2>
+        <table>
+          <tr><td class="k"><kbd>␣</kbd><kbd>b</kbd></td><td>Toggle breakpoint (<kbd>␣</kbd><kbd>B</kbd> conditional)</td></tr>
+          <tr><td class="k"><kbd>F5</kbd></td><td>Start / continue (UI opens itself)</td></tr>
+          <tr><td class="k"><kbd>F2</kbd> / <kbd>F1</kbd> / <kbd>F3</kbd></td><td>Step over / into / out</td></tr>
+          <tr><td class="k"><kbd>F7</kbd></td><td>Toggle debug panels</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Git &amp; everything else</h2>
+        <table>
+          <tr><td class="k"><kbd>␣</kbd><kbd>h</kbd> …</td><td>Hunk actions — stage, reset, blame</td></tr>
+          <tr><td class="k"><kbd>lazygit</kbd></td><td>Full git UI, in a terminal pane</td></tr>
+          <tr><td class="k"><kbd>␣</kbd> <i>and wait</i></td><td><b>which-key shows every binding</b></td></tr>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <span>Escape hatches: quit AeroSpace → windows float normally · quit Karabiner-Elements → ⇪ is caps lock again</span>
+    <span>~/Projects/dotfiles-mac-nix · docs/keyboard-reference.html</span>
+  </footer>
+</div>
