@@ -702,6 +702,11 @@ do
     -- clangd = {},
     -- gopls = {},
     pyright = {},
+    sqlls = {}, -- SQL
+    dockerls = {}, -- Dockerfile
+    docker_compose_language_service = {}, -- docker-compose / compose.yaml
+    terraformls = {}, -- Terraform (HashiCorp terraform-ls)
+    marksman = {}, -- Markdown (links, references, TOC)
     -- rust_analyzer = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -771,6 +776,8 @@ do
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
     'ruff', -- python formatter/linter (used by conform as ruff_format)
+    'sqlfluff', -- SQL formatter/linter (used by conform)
+    'prettier', -- markdown (and general web) formatter
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -808,6 +815,9 @@ do
     -- You can also specify external formatters in here.
     formatters_by_ft = {
       python = { 'ruff_format' },
+      sql = { 'sqlfluff' },
+      terraform = { 'terraform_fmt' }, -- uses the brew-installed terraform binary
+      markdown = { 'prettier' },
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
