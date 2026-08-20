@@ -778,6 +778,7 @@ do
     'ruff', -- python formatter/linter (used by conform as ruff_format)
     'sqlfluff', -- SQL formatter/linter (used by conform)
     'prettier', -- markdown (and general web) formatter
+    'debugpy', -- python debug adapter (nvim-dap-python)
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -999,6 +1000,54 @@ do
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   -- require 'custom.plugins'
+end
+
+-- ============================================================
+-- SECTION 11: IDE EXTRAS (personal)
+-- file explorer, statusline, autopairs, debugger
+-- ============================================================
+do
+  -- File explorer, statusline, autopairs — all part of the already-installed
+  -- mini.nvim, no new plugins needed.
+  require('mini.files').setup()
+  require('mini.statusline').setup()
+  require('mini.pairs').setup()
+
+  -- <leader>e: toggle the explorer at the current file's location
+  vim.keymap.set('n', '<leader>e', function()
+    local mf = require('mini.files')
+    if not mf.close() then mf.open(vim.api.nvim_buf_get_name(0), false) end
+  end, { desc = 'File [E]xplorer' })
+end
+
+do
+  -- [[ Debugging (DAP) ]] breakpoints, stepping, variable inspection.
+  -- Python via debugpy (installed by Mason, see ensure_installed).
+  vim.pack.add {
+    gh 'mfussenegger/nvim-dap',
+    gh 'nvim-neotest/nvim-nio',
+    gh 'rcarriga/nvim-dap-ui',
+    gh 'mfussenegger/nvim-dap-python',
+  }
+  local dap = require 'dap'
+  local dapui = require 'dapui'
+  dapui.setup()
+  dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+  dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+  dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+  require('dap-python').setup(vim.fn.stdpath 'data' .. '/mason/packages/debugpy/venv/bin/python')
+
+  -- Same keys as kickstart's official debug module
+  vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+  vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
+  vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
+  vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
+  vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle [B]reakpoint' })
+  vim.keymap.set('n', '<leader>B', function()
+    dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+  end, { desc = 'Debug: Conditional [B]reakpoint' })
+  vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: Toggle UI' })
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
