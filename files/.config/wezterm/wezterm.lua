@@ -101,6 +101,29 @@ config.keys = {
 
   { key = "f", mods = "LEADER", action = act.Search({ CaseSensitiveString = "" }) },
   { key = "[", mods = "LEADER", action = act.ActivateCopyMode },
+
+  -- ⌘A E: open the whole scrollback in nvim (new tab) — relative numbers,
+  -- 7k/d3j motions, / search. Close with :q as usual; the temp file is
+  -- cleaned up afterwards.
+  {
+    key = "e",
+    mods = "LEADER",
+    action = wezterm.action_callback(function(window, pane)
+      local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
+      local name = os.tmpname()
+      local f = io.open(name, "w+")
+      f:write(text)
+      f:flush()
+      f:close()
+      window:perform_action(
+        act.SpawnCommandInNewTab({
+          args = { "/etc/profiles/per-user/gayashan/bin/nvim", name, "+$" },
+        }),
+        pane
+      )
+      wezterm.time.call_after(2, function() os.remove(name) end)
+    end),
+  },
 }
 
 -- LEADER + 1..9 -> jump to tab N
