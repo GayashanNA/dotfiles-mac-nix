@@ -43,6 +43,7 @@
       "obsidian"
       "visual-studio-code"
       "vlc"
+      "vorssaint" # menu bar toolkit: volume mixer, system monitor, clipboard
       "windscribe"
     ];
   };
