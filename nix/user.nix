@@ -7,6 +7,9 @@ in
   home.username = "gayashan";
   home.homeDirectory = "/Users/gayashan";
   home.stateVersion = "23.11";
+  # No home-manager manual man pages: their options.json doc build trips
+  # the "without a proper context" eval warning under Determinate Nix.
+  manual.manpages.enable = false;
   home.language.base = "en_US.UTF-8";
 
   home.packages = with pkgs; [
