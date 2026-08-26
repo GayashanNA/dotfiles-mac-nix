@@ -26,6 +26,7 @@ This machine runs an i3/Terminator-style keyboard workflow:
 - **[WezTerm](https://wezfurlong.org/wezterm/)** — Terminator-style panes: ⌃⇧E splits side-by-side, ⌃⇧O splits stacked, ⌥+arrows navigate panes, ⌘A is the leader. Config: `files/.config/wezterm/wezterm.lua`.
 - **Karabiner-Elements** — ⇪ Caps Lock is Hyper (⌃⌥⌘⇧) when held, ⎋ Escape when tapped. Config: `files/.config/karabiner/karabiner.json`.
 - **CLI toolkit** — neovim (EDITOR), tmux (prefix ⌃A), fzf, zoxide, eza, bat, atuin (⌃R history), delta — all via Home Manager modules in `nix/user.nix`.
+- **Vorssaint** (menu bar) — owns: clipboard history (⌃⌘V), Command Bar launcher (⇪+Space), mouse scroll inversion (trackpad stays natural), keep-awake, system monitor. Deliberately OFF: its window management (AeroSpace owns that) and its Super Key (Karabiner owns ⇪). **Never install/uninstall packages via its Homebrew manager** — brew state is declarative here; GUI-installed packages get zapped on the next rebuild. Settings backup: `files/vorssaint/`.
 
 Terminology note: Terminator's "split vertically" (side-by-side panes) is WezTerm's `SplitHorizontal` and AeroSpace's `horizontal` orientation — the tools name the axis, Terminator names the divider.
 
