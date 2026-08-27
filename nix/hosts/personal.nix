@@ -8,17 +8,14 @@
   # Homebrew: anything not declared gets uninstalled on rebuild ("zap").
   # Safe here because this machine's list has been reconciled.
   homebrewCleanup = "zap";
-  extraTaps = [ "hashicorp/tap" ];
+  extraTaps = [ ];
   extraBrews = [
     "autoconf"
     "flyctl"
-    "hashicorp/tap/terraform"
     "python@3.12"
-    "ranger"
   ];
   extraCasks = [
     "docker-desktop"
-    "google-chrome"
     "google-drive"
     "logi-options+"
     "vlc"

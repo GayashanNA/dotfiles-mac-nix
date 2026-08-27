@@ -2,6 +2,11 @@
 
 let
   dotfilesDir = "${config.home.homeDirectory}/Projects/dotfiles-mac-nix";
+  # Git identities, host-independent. The DEFAULT identity per machine is
+  # hostSpec.gitEmail; the directory profiles below override it by repo
+  # location, with the same rule on every machine.
+  personalGitEmail = "gayashan.amarasinghe@gmail.com";
+  workGitEmail = "CHANGE-ME@work.example"; # fill in once; used by ~/work/ repos everywhere
 in
 {
   home.username = hostSpec.username;
@@ -74,6 +79,21 @@ in
       pull.rebase = true;
       rebase.updateRefs = true;
     };
+    # Identity by repo location — identical rule on both machines:
+    #   ~/work/**     -> work email
+    #   ~/Projects/** -> personal email
+    # Anything elsewhere falls back to the host default above.
+    # Check what applies in a repo with: git config user.email
+    includes = [
+      {
+        condition = "gitdir:~/work/";
+        contents.user.email = workGitEmail;
+      }
+      {
+        condition = "gitdir:~/Projects/";
+        contents.user.email = personalGitEmail;
+      }
+    ];
   };
 
   programs.delta = {

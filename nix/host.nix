@@ -17,10 +17,13 @@
     # deliberate `brew update`, re-run: brew trust nikitabobko/tap
     global.autoUpdate = false;
     taps = [
+      "hashicorp/tap"
       "nikitabobko/tap" # AeroSpace
     ] ++ hostSpec.extraTaps;
     brews = [
       "gh"
+      "hashicorp/tap/terraform"
+      "ranger"
     ] ++ hostSpec.extraBrews;
     casks = [
       # Fully-qualified on purpose: brew bundle rewrites ~/.homebrew/trust.json
@@ -30,6 +33,7 @@
       "nikitabobko/tap/aerospace" # i3-style tiling WM
       "claude"
       "firefox"
+      "google-chrome"
       "karabiner-elements"
       "obsidian"
       "visual-studio-code"
