@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostSpec, ... }:
 
 {
   # If you use Determinate Nix Installer (recommended), let it manage Nix itself.
@@ -8,53 +8,43 @@
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
+    # "zap" on hosts with a reconciled app list; "none" on hosts that may
+    # carry apps not (yet) declared here — see nix/hosts/<host>.nix.
+    onActivation.cleanup = hostSpec.homebrewCleanup;
     # Don't auto-update taps during rebuild activation: Homebrew's tap-trust
     # is per-revision, so a mid-bundle tap update invalidates the trust for
     # nikitabobko/tap and aborts activation at the cleanup step. After any
     # deliberate `brew update`, re-run: brew trust nikitabobko/tap
     global.autoUpdate = false;
     taps = [
-      "hashicorp/tap"
       "nikitabobko/tap" # AeroSpace
-    ];
+    ] ++ hostSpec.extraTaps;
     brews = [
-      "autoconf"
-      "flyctl"
       "gh"
-      "hashicorp/tap/terraform"
-      "python@3.12"
-      "ranger"
-    ];
+    ] ++ hostSpec.extraBrews;
     casks = [
       # Fully-qualified on purpose: brew bundle rewrites ~/.homebrew/trust.json
       # on every run, keeping only entries it can attribute to a tap via the
       # Brewfile. A bare "aerospace" loses its trust entry each rebuild and
       # fails activation at cleanup; the qualified name self-maintains trust.
       "nikitabobko/tap/aerospace" # i3-style tiling WM
-      "wezterm"
       "claude"
-      "docker-desktop"
       "firefox"
-      "google-chrome"
-      "google-drive"
       "karabiner-elements"
-      "logi-options+"
       "obsidian"
       "visual-studio-code"
-      "vlc"
       "vorssaint" # menu bar toolkit: volume mixer, system monitor, clipboard
-      "windscribe"
-    ];
+      "wezterm"
+    ] ++ hostSpec.extraCasks;
   };
 
   environment.systemPackages = with pkgs; [
     starship
   ];
 
-  system.primaryUser = "gayashan";
-  users.users.gayashan = {
-    home = "/Users/gayashan";
+  system.primaryUser = hostSpec.username;
+  users.users.${hostSpec.username} = {
+    home = "/Users/${hostSpec.username}";
     shell = pkgs.zsh;
   };
 
@@ -97,7 +87,7 @@
 
   environment.systemPath = [
     "/run/current-system/sw/bin"
-    "/etc/profiles/per-user/gayashan/bin"
+    "/etc/profiles/per-user/${hostSpec.username}/bin"
   ];
 
   system.stateVersion = 6;

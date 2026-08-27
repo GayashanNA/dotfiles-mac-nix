@@ -1,11 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hostSpec, ... }:
 
 let
   dotfilesDir = "${config.home.homeDirectory}/Projects/dotfiles-mac-nix";
 in
 {
-  home.username = "gayashan";
-  home.homeDirectory = "/Users/gayashan";
+  home.username = hostSpec.username;
+  home.homeDirectory = "/Users/${hostSpec.username}";
   home.stateVersion = "23.11";
   # No home-manager manual man pages: their options.json doc build trips
   # the "without a proper context" eval warning under Determinate Nix.
@@ -19,6 +19,7 @@ in
     jq
     fd
     fastfetch
+    awscli2 # declarative aws CLI (personal Mac also has an imperative /usr/local/bin/aws from the Amazon .pkg — the nix one takes PATH precedence)
     neovim
     poppler-utils # pdftotext & friends (was lost when brew zapped herdr's deps)
     gnumake # kickstart.nvim: build dep
@@ -38,7 +39,7 @@ in
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
     font-awesome
-  ];
+  ] ++ map (name: pkgs.${name}) hostSpec.extraPackages;
 
   fonts.fontconfig.enable = true;
 
@@ -65,7 +66,7 @@ in
     settings = {
       user = {
         name = "Gayashan Amarasinghe";
-        email = "gayashan.amarasinghe@gmail.com";
+        email = hostSpec.gitEmail;
       };
       core.editor = "nvim";
       color.ui = true;
@@ -212,7 +213,7 @@ in
       reset = "git reset --soft HEAD^";
       rebasem = "git rebase -i main";
       rebasemst = "git rebase -i master";
-      rebuild = "sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/Projects/dotfiles-mac-nix#mac";
+      rebuild = "sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/Projects/dotfiles-mac-nix#${hostSpec.flakeAttr}";
       ll = "eza -la --group-directories-first --git";
       la = "eza -a";
       l = "eza";

@@ -95,6 +95,39 @@ The script will:
 - apply the `nix-darwin` + Home Manager config
 - install [`nvm`](https://github.com/nvm-sh/nvm) and a default Node.js version if needed
 
+## Work laptop bootstrap
+
+The flake defines two hosts: `mac` (personal) and `work`. Shared config
+lives in `nix/host.nix` + `nix/user.nix`; machines differ only by
+`nix/hosts/{personal,work}.nix`. The whole keyboard stack — AeroSpace,
+WezTerm, Karabiner, Vorssaint, nvim, CLI toolkit — is shared and needs no
+porting.
+
+On the work laptop (Apple Silicon, admin):
+
+1. Install Xcode CLT: `xcode-select --install`
+2. Install [Determinate Nix](https://determinate.systems/nix-installer/)
+   and [Homebrew](https://brew.sh/)
+3. `git clone <this repo> ~/Projects/dotfiles-mac-nix` (path matters — the
+   config derives from it)
+4. Edit `nix/hosts/work.nix`: fill `username` (`whoami`) and `gitEmail`;
+   commit
+5. First build (before the `rebuild` alias exists):
+   `sudo nix run nix-darwin -- switch --flake ~/Projects/dotfiles-mac-nix#work`
+   — from then on it's just `rebuild`
+6. Manual, one-time per machine:
+   - AeroSpace: launch → grant Accessibility → quit & relaunch
+   - Karabiner-Elements: launch → grant its driver/input permissions
+   - Vorssaint: launch → import settings from `files/vorssaint/` → grant
+     Accessibility → verify window management + Super Key modules are OFF
+   - Mission Control: delete extra Desktops, un-fullscreen any apps
+     (AeroSpace manages one native Space)
+   - System Settings → Trackpad → Natural scrolling ON (mouse inversion
+     comes from Vorssaint)
+
+Note `homebrewCleanup = "none"` on the work host: pre-existing apps are
+left alone. Tighten to `"zap"` only after the app list is fully declared.
+
 ## How I manage changes later
 
 After the initial bootstrap, the usual workflow is:
