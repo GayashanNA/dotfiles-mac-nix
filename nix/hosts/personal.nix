@@ -3,7 +3,6 @@
 {
   flakeAttr = "mac"; # darwinConfigurations.<attr>; the `rebuild` alias uses it
   username = "gayashan";
-  gitEmail = "gayashan.amarasinghe@gmail.com";
 
   # Homebrew: anything not declared gets uninstalled on rebuild ("zap").
   # Safe here because this machine's list has been reconciled.

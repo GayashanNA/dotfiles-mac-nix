@@ -110,12 +110,23 @@ On the work laptop (Apple Silicon, admin):
    and [Homebrew](https://brew.sh/)
 3. `git clone <this repo> ~/Projects/dotfiles-mac-nix` (path matters — the
    config derives from it)
-4. Edit `nix/hosts/work.nix`: fill `username` (`whoami`) and `gitEmail`;
-   commit
-5. First build (before the `rebuild` alias exists):
+4. Edit `nix/hosts/work.nix`: fill `username` (`whoami`); commit
+5. Create the local git identity files (emails are deliberately NOT in
+   this repo — git reads these untracked files at runtime; a missing
+   file is silently ignored):
+   ```
+   mkdir -p ~/.config/git
+   printf '[user]\n\temail = <WORK EMAIL>\n'     > ~/.config/git/identity
+   cp ~/.config/git/identity                       ~/.config/git/identity-work
+   printf '[user]\n\temail = <PERSONAL EMAIL>\n' > ~/.config/git/identity-personal
+   ```
+   Repos under `~/work/` commit with the work identity, `~/Projects/`
+   with the personal one, anything else with `identity` (the default —
+   work, on that machine).
+6. First build (before the `rebuild` alias exists):
    `sudo nix run nix-darwin -- switch --flake ~/Projects/dotfiles-mac-nix#work`
    — from then on it's just `rebuild`
-6. Manual, one-time per machine:
+7. Manual, one-time per machine:
    - AeroSpace: launch → grant Accessibility → quit & relaunch
    - Karabiner-Elements: launch → grant its driver/input permissions
    - Vorssaint: launch → import settings from `files/vorssaint/` → grant

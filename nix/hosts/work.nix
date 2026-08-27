@@ -6,7 +6,6 @@
 {
   flakeAttr = "work";
   username = "CHANGE-ME"; # `whoami` on the work laptop
-  gitEmail = "CHANGE-ME@work.example";
 
   # "none" until this machine's app list has been fully reconciled —
   # IT- or colleague-installed tools must not be silently uninstalled.

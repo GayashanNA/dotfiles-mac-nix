@@ -2,11 +2,6 @@
 
 let
   dotfilesDir = "${config.home.homeDirectory}/Projects/dotfiles-mac-nix";
-  # Git identities, host-independent. The DEFAULT identity per machine is
-  # hostSpec.gitEmail; the directory profiles below override it by repo
-  # location, with the same rule on every machine.
-  personalGitEmail = "gayashan.amarasinghe@gmail.com";
-  workGitEmail = "CHANGE-ME@work.example"; # fill in once; used by ~/work/ repos everywhere
 in
 {
   home.username = hostSpec.username;
@@ -69,29 +64,31 @@ in
     lfs.enable = true;
     signing.format = null;
     settings = {
-      user = {
-        name = "Gayashan Amarasinghe";
-        email = hostSpec.gitEmail;
-      };
+      # Emails deliberately NOT in this repo — they live in untracked local
+      # files that git reads at runtime (see `includes` below). Each machine
+      # creates them once:
+      #   ~/.config/git/identity           default  ([user] email = …)
+      #   ~/.config/git/identity-personal  ~/Projects/** repos
+      #   ~/.config/git/identity-work      ~/work/** repos
+      # Missing files are silently ignored by git.
+      user.name = "Gayashan Amarasinghe";
       core.editor = "nvim";
       color.ui = true;
       push.autoSetupRemote = true;
       pull.rebase = true;
       rebase.updateRefs = true;
     };
-    # Identity by repo location — identical rule on both machines:
-    #   ~/work/**     -> work email
-    #   ~/Projects/** -> personal email
-    # Anything elsewhere falls back to the host default above.
+    # Identity by repo location — identical rule on both machines.
     # Check what applies in a repo with: git config user.email
     includes = [
+      { path = "~/.config/git/identity"; }
       {
         condition = "gitdir:~/work/";
-        contents.user.email = workGitEmail;
+        path = "~/.config/git/identity-work";
       }
       {
         condition = "gitdir:~/Projects/";
-        contents.user.email = personalGitEmail;
+        path = "~/.config/git/identity-personal";
       }
     ];
   };
