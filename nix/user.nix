@@ -64,14 +64,14 @@ in
     lfs.enable = true;
     signing.format = null;
     settings = {
-      # Emails deliberately NOT in this repo — they live in untracked local
-      # files that git reads at runtime (see `includes` below). Each machine
-      # creates them once:
-      #   ~/.config/git/identity           default  ([user] email = …)
+      # Git identity (name + email) deliberately NOT in this repo, so it
+      # stays fork-friendly — identities live in untracked local files that
+      # git reads at runtime (see `includes` below). Each machine creates
+      # them once with a [user] section containing name and email:
+      #   ~/.config/git/identity           default
       #   ~/.config/git/identity-personal  ~/Projects/** repos
       #   ~/.config/git/identity-work      ~/work/** repos
       # Missing files are silently ignored by git.
-      user.name = "Gayashan Amarasinghe";
       core.editor = "nvim";
       color.ui = true;
       push.autoSetupRemote = true;

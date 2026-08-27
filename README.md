@@ -111,14 +111,14 @@ On the work laptop (Apple Silicon, admin):
 3. `git clone <this repo> ~/Projects/dotfiles-mac-nix` (path matters — the
    config derives from it)
 4. Edit `nix/hosts/work.nix`: fill `username` (`whoami`); commit
-5. Create the local git identity files (emails are deliberately NOT in
-   this repo — git reads these untracked files at runtime; a missing
-   file is silently ignored):
+5. Create the local git identity files (name and email are deliberately
+   NOT in this repo — git reads these untracked files at runtime; a
+   missing file is silently ignored):
    ```
    mkdir -p ~/.config/git
-   printf '[user]\n\temail = <WORK EMAIL>\n'     > ~/.config/git/identity
-   cp ~/.config/git/identity                       ~/.config/git/identity-work
-   printf '[user]\n\temail = <PERSONAL EMAIL>\n' > ~/.config/git/identity-personal
+   printf '[user]\n\tname = <NAME>\n\temail = <WORK EMAIL>\n'     > ~/.config/git/identity
+   cp ~/.config/git/identity                                        ~/.config/git/identity-work
+   printf '[user]\n\tname = <NAME>\n\temail = <PERSONAL EMAIL>\n' > ~/.config/git/identity-personal
    ```
    Repos under `~/work/` commit with the work identity, `~/Projects/`
    with the personal one, anything else with `identity` (the default —
