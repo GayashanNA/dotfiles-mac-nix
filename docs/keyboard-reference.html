@@ -87,14 +87,14 @@
   }
   .legend b { color: var(--ink); font-weight: 600; }
 
-  .cols {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0 1.6rem;
-  }
-  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+  /* Balanced multicol (not grid): sections flow to fill all columns —
+     no hollow column ends. Scope is carried by each section's accent
+     color and tag chip, not by which column it lands in. */
+  .cols { column-count: 3; column-gap: 1.6rem; }
+  @media (max-width: 860px) { .cols { column-count: 1; } }
 
   section { break-inside: avoid; margin-bottom: 1rem; }
+  .colhead { break-after: avoid; }
 
   /* scope accents: window manager / terminal / editor */
   .scope-wm   { --acc: var(--pine); }
