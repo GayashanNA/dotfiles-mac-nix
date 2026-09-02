@@ -184,7 +184,7 @@
     flex-wrap: wrap;
   }
 
-  @page { size: A4 portrait; margin: 9mm; }
+  @page { size: A4 landscape; margin: 8mm; }
   @media print {
     :root, :root[data-theme="dark"] {
       --paper: #fff; --sheet: #fff; --ink: #35304a; --muted: #6f6a85;
@@ -193,15 +193,21 @@
       --pine: #2f2b3d; --rose: #2f2b3d; --gold: #2f2b3d; --iris: #2f2b3d;
       --chip-bg: #f4f1ea00; --chip-edge: #8f8a9e; --rule: #c9c4d4;
     }
-    html { font-size: 10.2px; }
+    html { font-size: 9.6px; }
     body { background: #fff; }
+    /* Landscape: the 3 screen columns are too tall for 192mm, so print
+       flows the sections through 4 balanced columns instead. Sections are
+       atomic (break-inside: avoid); the tag chip on every heading carries
+       the scope, so a section is legible away from its colhead. */
+    .cols { display: block; column-count: 4; column-gap: 1.4rem; }
     /* scope encoded in border style, legible without color */
     .scope-wm .colhead   { border-left-style: solid; }
     .scope-term .colhead { border-left-style: double; }
     .scope-ed .colhead   { border-left-style: dashed; }
     .warn h2 { font-weight: 800; }
     .sheet { max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; }
-    section { margin-bottom: .7rem; }
+    section { margin-bottom: .55rem; }
+    header { margin-bottom: .6rem; padding-bottom: .4rem; }
     a { color: inherit; text-decoration: none; }
   }
 </style>
