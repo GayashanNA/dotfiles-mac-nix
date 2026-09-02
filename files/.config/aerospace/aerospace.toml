@@ -139,3 +139,9 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.apple.ActivityMonitor'
 run = ['layout floating']
+
+# Print queue windows pop up when printing and must not join the tile tree —
+# they shove real windows around and skew where new spawns land.
+[[on-window-detected]]
+if.app-id = 'com.apple.printcenter'
+run = ['layout floating']
