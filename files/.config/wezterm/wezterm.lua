@@ -36,9 +36,9 @@ end
 -- Don't let font-size changes resize the OS window out from under AeroSpace.
 config.adjust_window_size_when_changing_font_size = false
 -- Deliberately NOT setting window_close_confirmation = "NeverPrompt":
--- AeroSpace binds ⌥Q to close, and the default confirmation (which only
+-- AeroSpace binds ⌥⇧C to close, and the default confirmation (which only
 -- appears when a process is still running) is the last line of defence
--- against a mistyped ⌥Q killing live jobs.
+-- against a mistyped ⌥⇧C killing live jobs.
 
 -- ===========================================================================
 -- Keys: Terminator muscle memory
@@ -67,6 +67,10 @@ config.keys = {
   { key = "o", mods = "CTRL|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "\\", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  -- Base-layer leader splits for the split keyboard (\ and - live on its
+  -- Symbols layer). v = Terminator "vertical" = side by side; s = stacked.
+  { key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  { key = "s", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 
   -- pane navigation
   { key = "LeftArrow", mods = "ALT", action = act.ActivatePaneDirection("Left") },

@@ -66,7 +66,7 @@
 		<key>clipboardHistoryLimit</key>
 		<integer>50</integer>
 		<key>clipboardHistoryShortcut</key>
-		<string>control+option+command:9</string>
+		<string>option:9</string>
 		<key>clipboardHistoryShortcutEnabled</key>
 		<true/>
 		<key>clipboardHistorySkipSensitive</key>
@@ -256,7 +256,7 @@
 		<key>lastUpdateIntroVersion</key>
 		<string>3.3.2</string>
 		<key>launchAtLoginWanted</key>
-		<false/>
+		<true/>
 		<key>mediaGIFEnd</key>
 		<real>0.0</real>
 		<key>mediaGIFFPS</key>
@@ -734,7 +734,7 @@
 		<key>screenshotSharingEnabled</key>
 		<true/>
 		<key>screenshotShortcut</key>
-		<string>control+option+command:21</string>
+		<string>shift+command:21</string>
 		<key>screenshotShortcutEnabled</key>
 		<true/>
 		<key>screenshotShowLastRegion</key>

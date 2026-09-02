@@ -49,6 +49,10 @@ alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
 alt-tab = 'workspace-back-and-forth'
+# ⌥N/⌥P cycle workspaces — for the split keyboard, whose base layer has no
+# number row (⌥1..9 still work everywhere).
+alt-n = 'workspace --wrap-around next'
+alt-p = 'workspace --wrap-around prev'
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
 alt-shift-k = 'move up'
@@ -63,9 +67,12 @@ alt-comma = 'layout accordion horizontal vertical'
 alt-f = 'fullscreen'
 alt-shift-space = 'layout floating tiling'
 
-# --- window lifecycle (⌥Q closes the WINDOW, not the app — ⌘Q still quits) ---
-alt-q = 'close'
-alt-shift-q = 'close-all-windows-but-current'
+# --- window lifecycle (⌥⇧C closes the WINDOW, not the app — ⌘Q still quits) ---
+# ⌥Q / ⌥⇧Q must stay UNBOUND: on the split keyboard, digit 1 lives on the
+# physical Q key, so a missed/late layer hold during ⌥1 / ⌥⇧1 lands on Q —
+# with close bound there it silently killed windows. Close-all-but-current
+# moved to service mode (⌥⇧; then Q) for the same reason.
+alt-shift-c = 'close'
 
 # --- workspaces (⌥1..⌥9 switch, ⌥⇧1..⌥⇧9 move window there) ---
 alt-1 = 'workspace 1'
@@ -100,6 +107,7 @@ alt-shift-semicolon = 'mode service' # ⌥⇧;  enter service mode
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main']
 f = ['layout floating tiling', 'mode main']
+q = ['close-all-windows-but-current', 'mode main']
 # i3-style manual container joining
 alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
