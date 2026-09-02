@@ -13,6 +13,11 @@
   homebrewCleanup = "none";
   extraTaps = [ ];
   extraBrews = [ ];
-  extraCasks = [ ];
+  extraCasks = [ "1password" ];
   extraPackages = [ ];
+
+  # Work SSH keys live in 1Password's SSH agent (enable it in 1Password:
+  # Settings → Developer → "Use the SSH agent"). Writes ~/.ssh/config with
+  # IdentityAgent pointing at the 1Password socket (see nix/user.nix).
+  use1PasswordSSH = true;
 }

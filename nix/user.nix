@@ -93,6 +93,18 @@ in
     ];
   };
 
+  # Work host only: SSH keys live in 1Password's SSH agent. This writes
+  # ~/.ssh/config routing all hosts through its socket; the agent itself is
+  # enabled once in the 1Password app (Settings → Developer). Personal host
+  # sets use1PasswordSSH = false and keeps ~/.ssh unmanaged.
+  programs.ssh = lib.mkIf hostSpec.use1PasswordSSH {
+    enable = true;
+    matchBlocks."*" = {
+      extraOptions.IdentityAgent =
+        ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+    };
+  };
+
   programs.delta = {
     enable = true;
     enableGitIntegration = true;

@@ -21,4 +21,6 @@
     "windscribe"
   ];
   extraPackages = [ ]; # nixpkgs attribute names (see user.nix)
+
+  use1PasswordSSH = false; # no 1Password here; ~/.ssh stays unmanaged
 }

@@ -126,7 +126,14 @@ On the work laptop (Apple Silicon, admin):
 6. First build (before the `rebuild` alias exists):
    `sudo nix run nix-darwin -- switch --flake ~/Projects/dotfiles-mac-nix#work`
    — from then on it's just `rebuild`
-7. Manual, one-time per machine:
+7. SSH auth (work uses 1Password's SSH agent): launch 1Password, sign
+   in, then Settings → Developer → enable "Use the SSH agent". The nix
+   config already writes `~/.ssh/config` pointing every host at the
+   1Password agent socket (`use1PasswordSSH` in `nix/hosts/work.nix`);
+   add/import the work SSH key in 1Password and register it with the
+   git host. Test: `ssh -T git@github.com` (1Password prompts to
+   approve).
+8. Manual, one-time per machine:
    - AeroSpace: launch → grant Accessibility → quit & relaunch
    - Karabiner-Elements: launch → grant its driver/input permissions
    - Vorssaint: launch → import settings from `files/vorssaint/` → grant
