@@ -208,7 +208,7 @@
 
 <div class="sheet">
   <header>
-    <h1>Keymap Atlas <small>AeroSpace · WezTerm · Neovim</small></h1>
+    <h1>Keymap Atlas <small>AeroSpace · WezTerm · Neovim · VS Code</small></h1>
     <div class="legend">
       <span><b>⌥</b> option/alt</span><span><b>⌃</b> control</span><span><b>⇧</b> shift</span>
       <span><b>⌘</b> command</span><span><b>⇪</b> caps lock</span><span><b>⏎</b> return</span>
@@ -217,7 +217,7 @@
     <div class="legend">
       <span>Scopes: <b style="color:var(--pine)">⌥ keys work everywhere</b></span>
       <span><b style="color:var(--gold)">⌃⇧ / ⌘A keys only inside WezTerm</b></span>
-      <span><b style="color:var(--iris)">Space keys only inside Neovim</b></span>
+      <span><b style="color:var(--iris)">editor keys only inside Neovim / VS Code</b></span>
     </div>
   </header>
 
@@ -373,7 +373,7 @@
 
     <!-- ============ COLUMN 3: EDITOR ============ -->
     <div class="scope-ed">
-      <div class="colhead"><b>Editor</b><span>Neovim — these keys work only inside nvim · leader = Space (␣)</span></div>
+      <div class="colhead"><b>Editor</b><span>Neovim &amp; VS Code — only inside the editor · nvim leader = Space (␣)</span></div>
       <section>
         <h2>Motion <span class="tag">relative numbers</span></h2>
         <table>
@@ -434,6 +434,21 @@
           <tr><td class="k"><kbd>␣</kbd><kbd>h</kbd> …</td><td>Hunk actions — stage, reset, blame</td></tr>
           <tr><td class="k"><kbd>lazygit</kbd></td><td>Full git UI, in a terminal pane</td></tr>
           <tr><td class="k"><kbd>␣</kbd> <i>and wait</i></td><td><b>which-key shows every binding</b></td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>VS Code <span class="tag">workspace 3</span></h2>
+        <table>
+          <tr><td class="k"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd></td><td>Command palette — every command lives here</td></tr>
+          <tr><td class="k"><kbd>⌘</kbd><kbd>P</kbd></td><td>Find file by name (like <kbd>␣</kbd><kbd>s</kbd><kbd>f</kbd>)</td></tr>
+          <tr><td class="k"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>F</kbd></td><td>Grep the whole project (like <kbd>␣</kbd><kbd>s</kbd><kbd>g</kbd>)</td></tr>
+          <tr><td class="k"><kbd>F12</kbd> / <kbd>⇧</kbd><kbd>F12</kbd></td><td>Definition / references</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>`</kbd> · <kbd>⌘</kbd><kbd>B</kbd></td><td>Toggle terminal panel · sidebar</td></tr>
+          <tr><td class="k"><kbd>⌘</kbd><kbd>D</kbd></td><td>Multi-cursor: add next match of selection</td></tr>
+          <tr><td class="k"><kbd>⌥</kbd><kbd>↑</kbd> / <kbd>↓</kbd> · <kbd>⌘</kbd><kbd>/</kbd></td><td>Move line · toggle comment</td></tr>
+          <tr><td class="k"><kbd>⌘</kbd><kbd>\</kbd><span class="then">then</span><kbd>⌘</kbd><kbd>1</kbd>/<kbd>2</kbd></td><td>Split editor · focus split N</td></tr>
+          <tr><td class="k"><kbd>F5</kbd> · <kbd>F9</kbd></td><td>Debug run · breakpoint (nvim: <kbd>F5</kbd> · <kbd>␣</kbd><kbd>b</kbd>)</td></tr>
         </table>
       </section>
     </div>
