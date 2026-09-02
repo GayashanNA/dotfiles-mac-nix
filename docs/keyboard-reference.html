@@ -287,6 +287,7 @@
         <table>
           <tr><td class="k"><kbd>⌥</kbd><kbd>Space</kbd></td><td>Command Bar — launch apps, switch windows, calc</td></tr>
           <tr><td class="k"><kbd>⌥</kbd><kbd>V</kbd></td><td>Clipboard history (search, pin, plain-paste)</td></tr>
+          <tr><td class="k"><kbd>⇧</kbd><kbd>⌘</kbd><kbd>4</kbd></td><td>Screenshot region (annotate &amp; share)</td></tr>
         </table>
       </section>
 
@@ -297,6 +298,16 @@
           <tr><td class="k">⌘M minimize</td><td>→ <kbd>⌥</kbd><kbd>⇧</kbd><kbd>9</kbd> park it on a workspace</td></tr>
           <tr><td class="k">Space swipes / ⌃←→</td><td>→ <kbd>⌥</kbd><kbd>N</kbd> / <kbd>⌥</kbd><kbd>Tab</kbd></td></tr>
           <tr><td class="k">Firefox: ⌥⇧C then quit</td><td>→ quit with <kbd>⌘</kbd><kbd>Q</kbd> or session is lost</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Escape hatches <span class="tag">recovery</span></h2>
+        <table>
+          <tr><td class="k">quit AeroSpace</td><td>Windows float normally again, instantly</td></tr>
+          <tr><td class="k"><kbd>aerospace enable off</kbd></td><td>Pause tiling, keep the process alive</td></tr>
+          <tr><td class="k">quit Karabiner-Elements</td><td><kbd>⇪</kbd> is plain Caps Lock again</td></tr>
+          <tr><td class="k"><kbd>git revert</kbd> + <kbd>rebuild</kbd></td><td>Any config change is one commit — undo it</td></tr>
         </table>
       </section>
     </div>
@@ -368,6 +379,20 @@
           <tr><td class="k"><kbd>z</kbd> <i>dir</i></td><td>Jump to frecent directory (zoxide)</td></tr>
           <tr><td class="k"><kbd>nv</kbd> · <kbd>ll</kbd> · <kbd>rebuild</kbd></td><td>nvim · eza listing · apply nix config</td></tr>
         </table>
+      </section>
+
+      <section>
+        <h2>tmux — ⌃A, then… <span class="tag">SSH &amp; sessions</span></h2>
+        <table>
+          <tr><td class="k"><kbd>|</kbd> / <kbd>-</kbd></td><td>Split side-by-side / below (keeps cwd)</td></tr>
+          <tr><td class="k"><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></td><td>Focus pane (vim style)</td></tr>
+          <tr><td class="k"><kbd>Z</kbd> / <kbd>X</kbd></td><td>Zoom pane / kill pane</td></tr>
+          <tr><td class="k"><kbd>C</kbd> · <kbd>N</kbd> / <kbd>P</kbd> · <kbd>1</kbd>…<kbd>9</kbd></td><td>New window · next / prev · window N</td></tr>
+          <tr><td class="k"><kbd>D</kbd></td><td>Detach — <kbd>tmux attach</kbd> to come back</td></tr>
+          <tr><td class="k"><kbd>[</kbd></td><td>Copy mode (vi keys, like WezTerm's)</td></tr>
+          <tr><td class="k"><kbd>⌃</kbd><kbd>A</kbd> <kbd>⌃</kbd><kbd>A</kbd></td><td>Send a real ⌃A (beginning-of-line)</td></tr>
+        </table>
+        <p class="note">For SSH and sessions that must survive a disconnect — local splits are WezTerm's job.</p>
       </section>
     </div>
 
@@ -455,7 +480,7 @@
   </div>
 
   <footer>
-    <span>Escape hatches: quit AeroSpace → windows float normally · quit Karabiner-Elements → ⇪ is caps lock again</span>
+    <span>Everything here is declarative — configs live in files/.config/ and apply on save or <kbd>rebuild</kbd></span>
     <span>~/Projects/dotfiles-mac-nix · docs/keyboard-reference.html</span>
   </footer>
 </div>
