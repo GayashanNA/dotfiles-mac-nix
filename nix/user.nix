@@ -311,6 +311,26 @@ in
       # Machine-local env (secrets, work tokens) — untracked, like the git
       # identity files. Silently absent until a machine needs one.
       [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
+    '' + lib.optionalString hasNvm ''
+
+      # nvm is a shell FUNCTION, not a binary: brew links nothing into PATH and
+      # expects nvm.sh to be sourced from the shell rc. Sourcing it eagerly costs
+      # ~200-400ms on EVERY shell, so define shims that load it on first use and
+      # then re-dispatch. Unsetting the shims before sourcing is what makes the
+      # recursive call resolve to the real command instead of looping.
+      export NVM_DIR="$HOME/.nvm"
+      _load_nvm() {
+        unset -f nvm node npm npx corepack 2>/dev/null
+        [ -d "$NVM_DIR" ] || mkdir -p "$NVM_DIR"
+        . "/opt/homebrew/opt/nvm/nvm.sh"
+        # nvm ships bash-format completion; zsh needs bashcompinit to read it.
+        autoload -U +X bashcompinit && bashcompinit
+        . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+      }
+      for _c in nvm node npm npx corepack; do
+        eval "$_c() { _load_nvm; $_c \"\$@\"; }"
+      done
+      unset _c
     '';
   };
 
