@@ -5,15 +5,24 @@
 # README.
 {
   flakeAttr = "work";
-  username = "CHANGE-ME"; # `whoami` on the work laptop
+  username = "gayashan"; # `whoami` on the work laptop
 
   # "none" until this machine's app list has been fully reconciled —
   # IT- or colleague-installed tools must not be silently uninstalled.
   # Tighten to "zap" deliberately, later, if ever.
   homebrewCleanup = "none";
   extraTaps = [ ];
-  extraBrews = [ ];
-  extraCasks = [ "1password" ];
+  extraBrews = [ "nvm"
+                  "uv"
+                  "awscli"
+                  "python@3.12"
+                ];
+  extraCasks = [ "1password"
+                  "docker-desktop"
+                  "claude-code"
+                  "logi-options+"
+                  "vlc"
+              ];
   extraPackages = [ ];
 
   # Work SSH keys live in 1Password's SSH agent (enable it in 1Password:
