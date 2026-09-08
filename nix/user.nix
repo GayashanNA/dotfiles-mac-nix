@@ -308,6 +308,9 @@ in
         eval "$_c() { _load_nvm; $_c \"\$@\"; }"
       done
       unset _c
+      # Machine-local env (secrets, work tokens) — untracked, like the git
+      # identity files. Silently absent until a machine needs one.
+      [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
     '';
   };
 
