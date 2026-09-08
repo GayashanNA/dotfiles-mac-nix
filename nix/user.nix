@@ -154,6 +154,16 @@ in
     defaultOptions = [ "--height=40%" "--layout=reverse" "--border" ];
   };
 
+  # Per-project env vars: a repo's .envrc loads on cd-in, unloads on cd-out
+  # (opt-in per repo via `direnv allow`). Personal/secret values go in an
+  # UNTRACKED .envrc.local inside that repo — never in this dotfiles repo.
+  # nix-direnv makes `use flake`/`use nix` shells cached and instant.
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -267,6 +277,9 @@ in
     '';
     initContent = ''
       bindkey '^f' autosuggest-accept
+      # Machine-local env (secrets, work tokens) — untracked, like the git
+      # identity files. Silently absent until a machine needs one.
+      [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
     '';
   };
 
