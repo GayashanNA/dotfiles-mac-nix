@@ -22,7 +22,8 @@
                   "claude-code"
                   "logi-options+"
                   "vlc"
-              ];
+                  "1password-cli"
+                ];
   extraPackages = [ ];
 
   # Work SSH keys live in 1Password's SSH agent (enable it in 1Password:
