@@ -279,6 +279,8 @@ in
       pip = "pip3";
       python = "python3";
       lg = "lazygit";
+      gw = "git worktree";
+      gwa = "git worktree add";
     };
     profileExtra = ''
       eval "$(/opt/homebrew/bin/brew shellenv)"
