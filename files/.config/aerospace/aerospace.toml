@@ -65,6 +65,9 @@ alt-shift-equal = 'balance-sizes'
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 alt-f = 'fullscreen'
+# ⌥⇧F: 70/30 preset — focused window takes 70% of the monitor width.
+# The tile tree keeps this ratio, so it survives ⌥F fullscreen round-trips.
+alt-shift-f = 'exec-and-forget $HOME/.config/aerospace/scripts/split-70.sh'
 alt-shift-space = 'layout floating tiling'
 
 # --- window lifecycle (⌥⇧C closes the WINDOW, not the app — ⌘Q still quits) ---
