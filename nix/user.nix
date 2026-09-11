@@ -32,6 +32,7 @@ in
     lazygit
     tree
     bun
+    nodejs # kickstart.nvim: Mason installs JS-based language servers (pyright et al) that need `node` on PATH
     rustup
     zip
     unzip

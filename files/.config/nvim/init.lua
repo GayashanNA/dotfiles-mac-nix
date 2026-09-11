@@ -703,7 +703,21 @@ do
   local servers = {
     -- clangd = {},
     -- gopls = {},
-    pyright = {},
+    pyright = {
+      -- Pyright (unlike basedpyright) does not look for a project-local venv on its own: with no
+      -- interpreter configured it resolves imports against `python3` from PATH, so every
+      -- third-party and workspace import comes back Unknown and goto-definition finds nothing.
+      -- Point it at <root>/.venv when the project has one (uv/venv layout), otherwise leave the
+      -- default alone.
+      on_init = function(client)
+        local venv_python = client.root_dir and (client.root_dir .. '/.venv/bin/python')
+        if venv_python and vim.uv.fs_stat(venv_python) then
+          client.settings = vim.tbl_deep_extend('force', client.settings or {}, {
+            python = { pythonPath = venv_python },
+          })
+        end
+      end,
+    },
     sqlls = {}, -- SQL
     dockerls = {}, -- Dockerfile
     docker_compose_language_service = {}, -- docker-compose / compose.yaml
