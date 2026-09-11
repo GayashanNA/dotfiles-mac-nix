@@ -288,9 +288,6 @@ in
     '';
     initContent = ''
       bindkey '^f' autosuggest-accept
-      # Machine-local env (secrets, work tokens) — untracked, like the git
-      # identity files. Silently absent until a machine needs one.
-      [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
     '' + lib.optionalString hasNvm ''
 
       # nvm is a shell FUNCTION, not a binary: brew links nothing into PATH and
@@ -298,42 +295,30 @@ in
       # ~200-400ms on EVERY shell, so define shims that load it on first use and
       # then re-dispatch. Unsetting the shims before sourcing is what makes the
       # recursive call resolve to the real command instead of looping.
+      #
+      # Each shim inlines the loader instead of calling a shared _load_nvm.
+      # Claude Code snapshots this file's functions once and re-sources that
+      # snapshot for every command; it captured the shims but not the helper,
+      # so node/npm/npx re-dispatched into themselves until FUNCNEST. Keeping
+      # each shim self-contained leaves nothing to lose.
       export NVM_DIR="$HOME/.nvm"
-      _load_nvm() {
-        unset -f nvm node npm npx corepack 2>/dev/null
-        [ -d "$NVM_DIR" ] || mkdir -p "$NVM_DIR"
-        . "/opt/homebrew/opt/nvm/nvm.sh"
-        # nvm ships bash-format completion; zsh needs bashcompinit to read it.
-        autoload -U +X bashcompinit && bashcompinit
-        . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-      }
       for _c in nvm node npm npx corepack; do
-        eval "$_c() { _load_nvm; $_c \"\$@\"; }"
+        eval "$_c() {
+          unset -f nvm node npm npx corepack 2>/dev/null
+          [ -d \"\$NVM_DIR\" ] || mkdir -p \"\$NVM_DIR\"
+          . \"/opt/homebrew/opt/nvm/nvm.sh\"
+          autoload -U +X bashcompinit && bashcompinit
+          . \"/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm\"
+          $_c \"\$@\"
+        }"
       done
       unset _c
-      # Machine-local env (secrets, work tokens) — untracked, like the git
-      # identity files. Silently absent until a machine needs one.
-      [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
-    '' + lib.optionalString hasNvm ''
+    '' + ''
 
-      # nvm is a shell FUNCTION, not a binary: brew links nothing into PATH and
-      # expects nvm.sh to be sourced from the shell rc. Sourcing it eagerly costs
-      # ~200-400ms on EVERY shell, so define shims that load it on first use and
-      # then re-dispatch. Unsetting the shims before sourcing is what makes the
-      # recursive call resolve to the real command instead of looping.
-      export NVM_DIR="$HOME/.nvm"
-      _load_nvm() {
-        unset -f nvm node npm npx corepack 2>/dev/null
-        [ -d "$NVM_DIR" ] || mkdir -p "$NVM_DIR"
-        . "/opt/homebrew/opt/nvm/nvm.sh"
-        # nvm ships bash-format completion; zsh needs bashcompinit to read it.
-        autoload -U +X bashcompinit && bashcompinit
-        . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-      }
-      for _c in nvm node npm npx corepack; do
-        eval "$_c() { _load_nvm; $_c \"\$@\"; }"
-      done
-      unset _c
+      # Machine-local env (secrets, work tokens) — untracked, like the git
+      # identity files. Silently absent until a machine needs one. Outside the
+      # nvm block on purpose: a host without nvm still needs these.
+      [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
     '';
   };
 
