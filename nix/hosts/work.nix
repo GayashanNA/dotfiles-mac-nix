@@ -14,7 +14,6 @@
   extraTaps = [ ];
   extraBrews = [ "nvm"
                   "uv"
-                  "awscli"
                   "python@3.12"
                 ];
   extraCasks = [ "1password"
