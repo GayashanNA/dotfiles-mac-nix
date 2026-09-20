@@ -5,8 +5,39 @@ local config = wezterm.config_builder()
 local is_windows = os.getenv("OS") and os.getenv("OS"):lower():find("windows")
 local is_macos = wezterm.target_triple:lower():find("darwin") ~= nil
 
--- Fixed light scheme (bright room): dark sibling is "rose-pine-moon".
-config.color_scheme = "rose-pine-dawn"
+-- Fixed light scheme (bright room): ink-on-paper, 18.6:1 text contrast.
+-- Alternatives auditioned 2026-09-20: rose-pine-dawn (too muted), Gruvbox
+-- Light Hard, GitHub Light Default.
+--
+-- Defined INLINE because WezTerm stable 20240203 (the last stable release)
+-- has its builtin scheme list frozen at Feb 2024 — Flexoki isn't in it, and
+-- an unknown scheme name silently falls back to the DEFAULT DARK palette.
+-- Palette: upstream iTerm2-Color-Schemes "Flexoki Light".
+config.color_schemes = {
+  ["Flexoki Light"] = {
+    foreground = "#100f0f",
+    background = "#fffcf0",
+    cursor_bg = "#100f0f",
+    cursor_border = "#100f0f",
+    cursor_fg = "#fffcf0",
+    selection_bg = "#cecdc3",
+    selection_fg = "#100f0f",
+    ansi = { "#100f0f", "#af3029", "#66800b", "#ad8301", "#205ea6", "#a02f6f", "#24837b", "#6f6e69" },
+    brights = { "#b7b5ac", "#d14d41", "#879a39", "#d0a215", "#4385be", "#ce5d97", "#3aa99f", "#cecdc3" },
+  },
+  ["Atom One Light"] = {
+    foreground = "#2a2c33",
+    background = "#f9f9f9",
+    cursor_bg = "#bbbbbb",
+    cursor_border = "#bbbbbb",
+    cursor_fg = "#ffffff",
+    selection_bg = "#ededed",
+    selection_fg = "#2a2c33",
+    ansi = { "#000000", "#de3e35", "#3f953a", "#d2b67c", "#2f5af3", "#950095", "#3f953a", "#bbbbbb" },
+    brights = { "#000000", "#de3e35", "#3f953a", "#d2b67c", "#2f5af3", "#a00095", "#3f953a", "#ffffff" },
+  },
+}
+config.color_scheme = "Atom One Light"
 config.max_fps = 120
 config.font = wezterm.font("Hack Nerd Font", { weight = "DemiBold" })
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
