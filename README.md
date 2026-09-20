@@ -49,6 +49,7 @@ Terminology note: Terminator's "split vertically" (side-by-side panes) is WezTer
 - `files/.config/wezterm/` — WezTerm terminal config
 - `files/.config/karabiner/` — Karabiner Hyper-key config
 - `files/vscode/` — VS Code settings (symlinked into `~/Library/Application Support/Code/User/`)
+- `files/obsidian/` — Obsidian vault template (`.obsidian/` with the Catppuccin theme + light appearance); `cp -R` into a new vault, not symlinked
 - `blog.md` — local copy of the upstream [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web)
 
 ## How to use it
@@ -174,7 +175,11 @@ My rough rule of thumb:
 
 A good setup does not force every tool through one package manager. It just makes the ownership of each layer clear.
 
-One deliberate exception: **Obsidian's theme is per-vault, not in this repo.** Each vault keeps its own `.obsidian/themes/Catppuccin/` (theme.css + manifest.json from [catppuccin/obsidian](https://github.com/catppuccin/obsidian)) and `.obsidian/appearance.json` (`"theme": "moonstone"` = light base = Latte, `"cssTheme": "Catppuccin"`), and the vault repos track those files. A symlink from here would break the vault on any other machine, so a new vault gets the theme once via Settings → Appearance → Themes → Catppuccin, base color scheme Light.
+One deliberate exception: **Obsidian's theme is per-vault, not in this repo.** Each vault keeps its own `.obsidian/themes/Catppuccin/` (theme.css + manifest.json from [catppuccin/obsidian](https://github.com/catppuccin/obsidian)) and `.obsidian/appearance.json` (`"theme": "moonstone"` = light base = Latte, `"cssTheme": "Catppuccin"`), and the vault repos track those files. A symlink from here would break the vault on any other machine, so a new vault gets it by copying the template once (Obsidian's theme updater then keeps it current):
+
+```bash
+cp -R ~/Projects/dotfiles-mac-nix/files/obsidian/.obsidian /path/to/new-vault/
+```
 
 ## Why this setup looks like this
 
