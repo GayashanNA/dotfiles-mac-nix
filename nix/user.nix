@@ -112,6 +112,7 @@ in
       navigate = true;
       line-numbers = true;
       side-by-side = true;
+      light = true; # terminal runs a light scheme (rose-pine-dawn)
     };
   };
 

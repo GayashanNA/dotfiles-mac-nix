@@ -5,16 +5,19 @@ local config = wezterm.config_builder()
 local is_windows = os.getenv("OS") and os.getenv("OS"):lower():find("windows")
 local is_macos = wezterm.target_triple:lower():find("darwin") ~= nil
 
-config.color_scheme = "rose-pine-moon"
+-- Fixed light scheme (bright room): dark sibling is "rose-pine-moon".
+config.color_scheme = "rose-pine-dawn"
 config.max_fps = 120
 config.font = wezterm.font("Hack Nerd Font", { weight = "DemiBold" })
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_frame = {
   font = wezterm.font("Hack Nerd Font", { weight = "Bold" }),
 }
+-- Gentle dim that reads correctly on a LIGHT scheme (the old
+-- saturation 0 / brightness 0.5 turned panes charcoal on dawn).
 config.inactive_pane_hsb = {
-  saturation = 0.0,
-  brightness = 0.5,
+  saturation = 0.9,
+  brightness = 0.95,
 }
 
 if is_windows then
@@ -24,7 +27,8 @@ if is_windows then
 end
 
 if is_macos then
-  config.window_background_opacity = 0.8
+  -- 0.95, not 0.8: translucency tuned for dark washes a light scheme out.
+  config.window_background_opacity = 0.95
   config.macos_window_background_blur = 50
   config.font_size = 15.0
   config.window_frame.font_size = 13.0
