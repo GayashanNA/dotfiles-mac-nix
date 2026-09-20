@@ -174,6 +174,8 @@ My rough rule of thumb:
 
 A good setup does not force every tool through one package manager. It just makes the ownership of each layer clear.
 
+One deliberate exception: **Obsidian's theme is per-vault, not in this repo.** Each vault keeps its own `.obsidian/themes/Catppuccin/` (theme.css + manifest.json from [catppuccin/obsidian](https://github.com/catppuccin/obsidian)) and `.obsidian/appearance.json` (`"theme": "moonstone"` = light base = Latte, `"cssTheme": "Catppuccin"`), and the vault repos track those files. A symlink from here would break the vault on any other machine, so a new vault gets the theme once via Settings → Appearance → Themes → Catppuccin, base color scheme Light.
+
 ## Why this setup looks like this
 
 I wanted a setup that was:
