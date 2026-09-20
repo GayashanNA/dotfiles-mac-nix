@@ -15,6 +15,8 @@
   extraBrews = [ "nvm"
                   "uv"
                   "python@3.12"
+                  "openconnect"
+                  "vpn-slice"
                 ];
   extraCasks = [ "1password"
                   "docker-desktop"
