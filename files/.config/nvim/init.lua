@@ -390,16 +390,18 @@ do
   --
   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
   --
-  -- Rose Pine to match WezTerm (both fixed LIGHT — bright room). The repo is
-  -- 'rose-pine/neovim', so pin the plugin name or vim.pack would call it "neovim".
-  vim.pack.add { { src = gh 'rose-pine/neovim', name = 'rose-pine' } }
-  require('rose-pine').setup {
-    variant = 'dawn', -- dark siblings: 'main', 'moon'
-    styles = { italic = false },
+  -- One Light (Atom family) to match WezTerm's "Atom One Light" — both fixed
+  -- LIGHT for the bright room. Dark styles exist too: 'dark', 'darker', etc.
+  vim.pack.add { gh 'navarasu/onedark.nvim' }
+  require('onedark').setup {
+    style = 'light',
+    code_style = { comments = 'none' }, -- no italics
   }
 
-  -- Load the colorscheme here.
-  vim.cmd.colorscheme 'rose-pine-dawn'
+  -- Load the colorscheme here. background must agree with the style —
+  -- onedark leaves it alone, and plugins key light/dark palettes off it.
+  vim.o.background = 'light'
+  require('onedark').load()
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
