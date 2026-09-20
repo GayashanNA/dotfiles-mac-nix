@@ -36,8 +36,19 @@ config.color_schemes = {
     ansi = { "#000000", "#de3e35", "#3f953a", "#d2b67c", "#2f5af3", "#950095", "#3f953a", "#bbbbbb" },
     brights = { "#000000", "#de3e35", "#3f953a", "#d2b67c", "#2f5af3", "#a00095", "#3f953a", "#ffffff" },
   },
+  ["GitHub Light Default"] = {
+    foreground = "#1f2328",
+    background = "#ffffff",
+    cursor_bg = "#0969da",
+    cursor_border = "#0969da",
+    cursor_fg = "#3c9cff",
+    selection_bg = "#1f2328",
+    selection_fg = "#ffffff",
+    ansi = { "#24292f", "#cf222e", "#116329", "#4d2d00", "#0969da", "#8250df", "#1b7c83", "#6e7781" },
+    brights = { "#57606a", "#a40e26", "#1a7f37", "#633c01", "#218bff", "#a475f9", "#3192aa", "#8c959f" },
+  },
 }
-config.color_scheme = "Atom One Light"
+config.color_scheme = "GitHub Light Default"
 config.max_fps = 120
 config.font = wezterm.font("Hack Nerd Font", { weight = "DemiBold" })
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"

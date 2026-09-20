@@ -390,18 +390,19 @@ do
   --
   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
   --
-  -- One Light (Atom family) to match WezTerm's "Atom One Light" — both fixed
-  -- LIGHT for the bright room. Dark styles exist too: 'dark', 'darker', etc.
-  vim.pack.add { gh 'navarasu/onedark.nvim' }
-  require('onedark').setup {
-    style = 'light',
-    code_style = { comments = 'none' }, -- no italics
+  -- GitHub Light to match WezTerm's "GitHub Light Default" — both fixed
+  -- LIGHT for the bright room. Dark siblings: 'github_dark_default' etc.
+  vim.pack.add { gh 'projekt0n/github-nvim-theme' }
+  require('github-theme').setup {
+    options = {
+      styles = { comments = 'NONE' }, -- no italics
+    },
   }
 
-  -- Load the colorscheme here. background must agree with the style —
-  -- onedark leaves it alone, and plugins key light/dark palettes off it.
+  -- Load the colorscheme here. Pin background to agree — plugins key
+  -- light/dark palettes off it.
   vim.o.background = 'light'
-  require('onedark').load()
+  vim.cmd.colorscheme 'github_light_default'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
