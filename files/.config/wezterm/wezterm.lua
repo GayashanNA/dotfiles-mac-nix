@@ -72,6 +72,10 @@ config.color_schemes = {
 }
 -- "Catppuccin Latte" is IN the frozen builtin list — no inline needed.
 config.color_scheme = "Catppuccin Latte"
+-- Latte's own text colour (#4c4f69) is only 7:1 on base; body text read
+-- as grey next to anything painted black (e.g. Claude Code's prompt bar).
+-- Borrow Macchiato's base as the foreground: still Catppuccin, 13:1.
+config.colors = { foreground = "#24273a" }
 config.max_fps = 120
 config.font = wezterm.font("Hack Nerd Font", { weight = "DemiBold" })
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
