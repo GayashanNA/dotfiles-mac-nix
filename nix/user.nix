@@ -112,7 +112,7 @@ in
       navigate = true;
       line-numbers = true;
       side-by-side = true;
-      light = true; # terminal runs a light scheme (rose-pine-dawn)
+      light = true; # terminal runs a light scheme (see wezterm.lua)
     };
   };
 
@@ -289,6 +289,13 @@ in
     # Writable target on purpose: lazy.nvim maintains lazy-lock.json inside
     # the repo, so plugin versions are tracked in git alongside init.lua.
     ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/.config/nvim";
+    # VS Code: link the FILE, not User/ — VS Code owns snippets/,
+    # globalStorage/ etc. Writable on purpose so the Settings UI still saves
+    # into the repo. Extensions are NOT nix-managed (the app is a Homebrew
+    # cask); install the theme once per machine:
+    #   code --install-extension Catppuccin.catppuccin-vsc
+    "Library/Application Support/Code/User/settings.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/files/vscode/settings.json";
   };
 
   # AeroSpace and Karabiner read their configs at LOGIN, before the /nix

@@ -48,6 +48,7 @@ Terminology note: Terminator's "split vertically" (side-by-side panes) is WezTer
 - `files/.config/aerospace/` — AeroSpace tiling WM config
 - `files/.config/wezterm/` — WezTerm terminal config
 - `files/.config/karabiner/` — Karabiner Hyper-key config
+- `files/vscode/` — VS Code settings (symlinked into `~/Library/Application Support/Code/User/`)
 - `blog.md` — local copy of the upstream [blog post](https://open.substack.com/pub/kunchenguid/p/how-i-built-a-reproducible-mac-setup?utm_campaign=post-expanded-share&utm_medium=web)
 
 ## How to use it

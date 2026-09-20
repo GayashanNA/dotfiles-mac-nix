@@ -1,0 +1,20 @@
+{
+    // Catppuccin Latte to match WezTerm + nvim (fixed LIGHT). Needs the
+    // extension, installed once per machine (not nix-managed for the cask):
+    //   code --install-extension Catppuccin.catppuccin-vsc
+    "workbench.colorTheme": "Catppuccin Latte",
+    // No italics — parity with nvim's no_italic = true.
+    "catppuccin.italicComments": false,
+    "catppuccin.italicKeywords": false,
+    "claudeCode.useTerminal": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.fontSize": 12,
+    "terminal.integrated.fontSize": 12,
+    "editor.minimap.enabled": false,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
+}
