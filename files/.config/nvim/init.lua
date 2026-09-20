@@ -390,19 +390,19 @@ do
   --
   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
   --
-  -- GitHub Light to match WezTerm's "GitHub Light Default" — both fixed
-  -- LIGHT for the bright room. Dark siblings: 'github_dark_default' etc.
-  vim.pack.add { gh 'projekt0n/github-nvim-theme' }
-  require('github-theme').setup {
-    options = {
-      styles = { comments = 'NONE' }, -- no italics
-    },
+  -- Catppuccin Latte to match WezTerm — both fixed LIGHT for the bright
+  -- room. Dark flavours: frappe, macchiato, mocha. Repo is 'catppuccin/nvim',
+  -- so pin the plugin name or vim.pack would call it "nvim".
+  vim.pack.add { { src = gh 'catppuccin/nvim', name = 'catppuccin' } }
+  require('catppuccin').setup {
+    flavour = 'latte',
+    no_italic = true,
   }
 
   -- Load the colorscheme here. Pin background to agree — plugins key
   -- light/dark palettes off it.
   vim.o.background = 'light'
-  vim.cmd.colorscheme 'github_light_default'
+  vim.cmd.colorscheme 'catppuccin-latte'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }

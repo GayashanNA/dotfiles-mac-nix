@@ -47,8 +47,31 @@ config.color_schemes = {
     ansi = { "#24292f", "#cf222e", "#116329", "#4d2d00", "#0969da", "#8250df", "#1b7c83", "#6e7781" },
     brights = { "#57606a", "#a40e26", "#1a7f37", "#633c01", "#218bff", "#a475f9", "#3192aa", "#8c959f" },
   },
+  ["Ayu Light"] = {
+    foreground = "#5c6166",
+    background = "#f8f9fa",
+    cursor_bg = "#ffaa33",
+    cursor_border = "#ffaa33",
+    cursor_fg = "#f8f9fa",
+    selection_bg = "#035bd6",
+    selection_fg = "#f8f9fa",
+    ansi = { "#000000", "#ea6c6d", "#6cbf43", "#eca944", "#3199e1", "#9e75c7", "#46ba94", "#bababa" },
+    brights = { "#686868", "#f07171", "#86b300", "#f2ae49", "#399ee6", "#a37acc", "#4cbf99", "#d1d1d1" },
+  },
+  ["Gruvbox Light Hard"] = {
+    foreground = "#3c3836",
+    background = "#f9f5d7",
+    cursor_bg = "#3c3836",
+    cursor_border = "#3c3836",
+    cursor_fg = "#f9f5d7",
+    selection_bg = "#3c3836",
+    selection_fg = "#f9f5d7",
+    ansi = { "#f9f5d7", "#cc241d", "#98971a", "#d79921", "#458588", "#b16286", "#689d6a", "#7c6f64" },
+    brights = { "#928374", "#9d0006", "#79740e", "#b57614", "#076678", "#8f3f71", "#427b58", "#3c3836" },
+  },
 }
-config.color_scheme = "GitHub Light Default"
+-- "Catppuccin Latte" is IN the frozen builtin list — no inline needed.
+config.color_scheme = "Catppuccin Latte"
 config.max_fps = 120
 config.font = wezterm.font("Hack Nerd Font", { weight = "DemiBold" })
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
