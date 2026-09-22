@@ -254,6 +254,7 @@ in
       rebasem = "git rebase -i main";
       rebasemst = "git rebase -i master";
       rebuild = "sudo /run/current-system/sw/bin/darwin-rebuild switch --flake ~/Projects/dotfiles-mac-nix#${hostSpec.flakeAttr}";
+      upgrade = "(cd ~/Projects/dotfiles-mac-nix && nix flake update) && brew update && brew trust nikitabobko/tap && brew upgrade && rebuild";
       ll = "eza -la --group-directories-first --git";
       la = "eza -a";
       l = "eza";

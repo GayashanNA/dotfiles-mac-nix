@@ -165,6 +165,14 @@ This alias is included in the shell config and expands to the repo path used in 
 /run/current-system/sw/bin/darwin-rebuild switch --flake ~/Projects/dotfiles-mac-nix#mac
 ```
 
+To upgrade everything (Nix inputs and Homebrew apps), run:
+
+```bash
+upgrade
+```
+
+It bumps `flake.lock`, runs `brew update`, re-trusts `nikitabobko/tap` (tap trust resets on every `brew update`), runs `brew upgrade`, then runs `rebuild`. If the rebuild works, commit `flake.lock`. To roll back: `git checkout flake.lock && rebuild`. `brew upgrade` skips casks that update themselves; run `brew upgrade --greedy` when you want those too.
+
 ## Where to add new tools
 
 My rough rule of thumb:
