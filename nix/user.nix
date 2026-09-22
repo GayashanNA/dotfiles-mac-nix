@@ -288,6 +288,11 @@ in
     '';
     initContent = ''
       bindkey '^f' autosuggest-accept
+
+      # `ccode` launches Claude Code with a session name of "model-effort folder
+      # branch" and a prompt-bar colour hashed from the branch. Guarded because
+      # the script lives in ~/.claude, which home-manager does not manage.
+      [[ -f ~/.claude/scripts/claude-session.zsh ]] && source ~/.claude/scripts/claude-session.zsh
     '' + lib.optionalString hasNvm ''
 
       # nvm is a shell FUNCTION, not a binary: brew links nothing into PATH and
