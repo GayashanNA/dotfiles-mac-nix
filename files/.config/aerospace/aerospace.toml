@@ -143,6 +143,13 @@ run = ['layout floating']
 if.app-id = 'com.apple.ActivityMonitor'
 run = ['layout floating']
 
+# Native tabs are separate windows to AeroSpace (upstream #68): a tiled Finder
+# tab gets its own tile/workspace and clicking it jumps there. Floating keeps
+# tabs working as a normal macOS window.
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
+
 # Print queue windows pop up when printing and must not join the tile tree —
 # they shove real windows around and skew where new spawns land.
 [[on-window-detected]]
