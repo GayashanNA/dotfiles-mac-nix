@@ -707,10 +707,13 @@ do
       -- Pyright (unlike basedpyright) does not look for a project-local venv on its own: with no
       -- interpreter configured it resolves imports against `python3` from PATH, so every
       -- third-party and workspace import comes back Unknown and goto-definition finds nothing.
-      -- Point it at <root>/.venv when the project has one (uv/venv layout), otherwise leave the
-      -- default alone.
+      -- Point it at the nearest .venv at or above the root, otherwise leave the default alone.
+      -- Searching upward matters for uv workspaces: each member has its own pyproject.toml, so
+      -- the root resolves to the member dir, while the one shared .venv sits at the workspace root.
       on_init = function(client)
-        local venv_python = client.root_dir and (client.root_dir .. '/.venv/bin/python')
+        if not client.root_dir then return end
+        local venv = vim.fs.find('.venv', { path = client.root_dir, upward = true, type = 'directory', stop = vim.env.HOME })[1]
+        local venv_python = venv and (venv .. '/bin/python')
         if venv_python and vim.uv.fs_stat(venv_python) then
           client.settings = vim.tbl_deep_extend('force', client.settings or {}, {
             python = { pythonPath = venv_python },
@@ -729,7 +732,7 @@ do
     --    https://github.com/pmizio/typescript-tools.nvim
     --
     -- But for many setups, the LSP (`ts_ls`) will work just fine
-    -- ts_ls = {},
+    ts_ls = {}, -- TypeScript / JavaScript (uses the project's node_modules/typescript when present)
 
     stylua = {}, -- Used to format Lua code
 
