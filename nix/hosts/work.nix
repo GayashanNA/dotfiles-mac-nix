@@ -20,7 +20,7 @@
                 ];
   extraCasks = [ "1password"
                   "docker-desktop"
-                  "claude-code"
+                  "claude-code@latest"
                   "logi-options+"
                   "vlc"
                   "1password-cli"
