@@ -103,10 +103,10 @@ in
   # sets use1PasswordSSH = false and keeps ~/.ssh unmanaged.
   programs.ssh = lib.mkIf hostSpec.use1PasswordSSH {
     enable = true;
-    matchBlocks."*" = {
-      extraOptions.IdentityAgent =
-        ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
-    };
+    # The module's legacy defaults are all OpenSSH's own defaults anyway.
+    enableDefaultConfig = false;
+    settings."*".IdentityAgent =
+      ''"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
   };
 
   programs.delta = {
