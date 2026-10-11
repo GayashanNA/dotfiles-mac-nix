@@ -36,7 +36,6 @@
       "google-chrome"
       "karabiner-elements"
       "obsidian"
-      "qview" # minimal image viewer
       "visual-studio-code"
       "vorssaint" # menu bar toolkit: volume mixer, system monitor, clipboard
       "wezterm"
